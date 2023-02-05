@@ -1,16 +1,12 @@
-from flask import Flask, render_template, Response, redirect
+from flask import Flask, Response
 from flask_cors import CORS
 import pandas as pd 
 import numpy as np
-import matplotlib.pyplot as plt
 import gc
 import json
 import networkx
 from networkx.algorithms.approximation.clique import large_clique_size 
 from collections import Counter
-# from netfilterqueue import NetfilterQueue
-from scapy.all import *
-import time
 
 app = Flask(__name__)
 CORS(app)
@@ -868,4 +864,4 @@ def all_run():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port='5000', debug=True)
+    app.run(host='0.0.0.0', port='5000')
