@@ -13,7 +13,7 @@ const UtilsColor = Loadable(lazy(() => import('views/utilities/Color')));
 const UtilsShadow = Loadable(lazy(() => import('views/utilities/Shadow')));
 const UtilsMaterialIcons = Loadable(lazy(() => import('views/utilities/MaterialIcons')));
 const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons')));
-const USerDataExtract = Loadable(lazy(() => import('views/user-data-extract/Feature1')));
+const UserDataExtract = Loadable(lazy(() => import('views/user-data-extract/Feature1')));
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 

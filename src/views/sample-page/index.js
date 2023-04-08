@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 // material-ui
 import { useState, useEffect } from 'react';
-import { Typography, TextField, OutlinedInput, InputLabel, FormControl, FormHelperText, Grid, Button } from '@mui/material';
+import { Typography, TextField, OutlinedInput, InputLabel, FormControl, FormHelperText, Grid, Button, } from '@mui/material';
 import { blue } from '@mui/material/colors';
 import { styled, useTheme } from '@mui/material/styles';
 import TotalIncomeDarkCard from 'views/dashboard/Default/TotalIncomeDarkCard';
@@ -24,7 +24,9 @@ import MainCard from 'ui-component/cards/MainCard';
 const SamplePage = () => {
     const [load, setLoad] = useState(false);
     const [imageUrls, setImageUrls] = useState([]);
+    const [json, setJson] = useState("")
     const [imageUpload, setImageUpload] = useState();
+    const [userData, setUserData] = useState()
     const uploadFile = () => {
         setLoad(true);
         if (imageUpload == null) return;
@@ -36,14 +38,21 @@ const SamplePage = () => {
             });
         });
     };
-
-    const data = { "url": 'https://api.seon.io/SeonRestService/phone-api/v1.4/917045141518' }
-
-    const call = async () => {
-        await SeonService.seonPhoneData(data).then((res) => { console.log(res) })
+    const handleChange = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setJson({ ...json, [name]: value });
     }
-
-    // console.log(imageUpload);
+    console.log(json)
+    const call = async () => {
+        await SeonService.seonEmailData(json)
+            .then((res) => {
+                console.log(res.data.data)
+                setUserData(res.data.data)
+                // setLoad(false)
+            })
+    }
+    console.log(json);
     const theme = useTheme()
     return (
         <>
@@ -62,19 +71,16 @@ const SamplePage = () => {
                         <FormControl
                             fullWidth
                         // error={Boolean(touched.email && error s.email)} 
-                        sx={{ ...theme.typography.customInput }}
+                        // sx={{ ...theme.typography.customInput }}
                         >
                             <OutlinedInput
                                 id="outlined-adornment-email-login"
                                 type="text"
                                 // value={values.email}
-                                name="image"
+                                name="phone_no"
                                 // onBlur={handleBlur}
-                                // onChange={handleChange}
-                                label="File"
-                                onChange={(e) =>
-                                    setImageUpload(e.target.files[0])
-                                }
+                                onChange={(e) => setJson(e.target.value)}
+                                label="Number"
                                 inputProps={{}}
                             />
                             {/* {touched.email && errors.email && (
@@ -89,7 +95,13 @@ const SamplePage = () => {
                     </Grid>
                 </Grid>
             </MainCard>
-            <TotalIncomeDarkCard />
+            <Grid container>
+
+                <Grid item xs={4}>
+                    <TotalIncomeDarkCard />
+                </Grid>
+
+            </Grid>
 
         </>
     )
