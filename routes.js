@@ -193,6 +193,9 @@ router.get(`/email/regiTrue/:email`, function (req, res, next) {
   })
 })
 
+
+
+
 //ip api
 router.get(`/ip/:ip`, function (req, res, next) {
   var options = {
@@ -209,7 +212,10 @@ router.get(`/ip/:ip`, function (req, res, next) {
   }).pipe(res)
 })
 
-//phone number api
+
+
+
+//phone number api-------------------------------------------------------------
 router.get(`/phone/:num`, function (req, res, next) {
   var options = {
     method: 'GET',
@@ -224,5 +230,109 @@ router.get(`/phone/:num`, function (req, res, next) {
     console.log(response.body)
   }).pipe(res)
 })
+
+
+//registered phone number --------------------------------------------------------
+const phoneTech = [
+  'jdid',
+]
+const phoneEcomm = [
+  'flipkart',
+  'bukalapak',
+]
+const phoneSocial = [
+  'facebook',
+  'google',
+  'instagram',
+  'microsoft',
+  'skype',
+  'twitter',
+  'yahoo',
+  'ok',
+  'kakao',
+  'snapchat',
+  'whatsapp',
+  'telegram'
+]
+const phoneMessaging = ['viber', 'zalo', 'line']
+
+var registeredPhoneTech = []
+var registeredPhoneEcomm = []
+var registeredPhoneSocial = []
+var registeredPhoneMessaging = []
+
+router.get(`/phone/regiTrue/:phone`, function (req, res, next) {
+  var resPhone = {}
+  var options = {
+    method: 'GET',
+    url: `https://api.seon.io/SeonRestService/phone-api/v1.4/${req.params.phone}`,
+    headers: {
+      'X-API-KEY': '6e7236ee-06a3-4046-aba8-35943eba2f17',
+      'Content-Type': 'application/json',
+    },
+  }
+
+  request(options, function (error, response) {
+    if (error) throw new Error(error)
+    var x = JSON.parse(response.body)
+    console.log(x) 
+    var accounts = Object.keys(x.data.account_details) 
+    registeredPhoneTech = []
+    registeredPhoneEcomm = []
+    registeredPhoneSocial = []
+    registeredPhoneMessaging = [] 
+
+    accounts.forEach((account) => {
+      resPhone = {}
+      if (phoneTech.includes(account)) {
+        resPhone = {}
+        if (x.data.account_details[account].registered === true) {
+          registeredPhoneTech.push({
+            name: account,
+            isRegistered: x.data.account_details[account].registered,
+            // icon:
+          })
+          // resEmail = { ...resEmail, registeredEmailTech }
+        }
+      } else if (phoneEcomm.includes(account)) {
+        if (x.data.account_details[account].registered === true) {
+          registeredPhoneEcomm.push({
+            name: account,
+            isRegistered: x.data.account_details[account].registered,
+          })
+        }
+      } else if (phoneSocial.includes(account)) {
+        if (x.data.account_details[account].registered === true) {
+          registeredPhoneSocial.push({
+            name: account,
+            isRegistered: x.data.account_details[account].registered,
+          })
+        }
+      } else if (phoneMessaging.includes(account)) {
+        if (x.data.account_details[account].registered === true) {
+          registeredPhoneMessaging.push({
+            name: account,
+            isRegistered: x.data.account_details[account].registered,
+          })
+        }
+      }
+    })
+    resPhone = {
+      registeredPhoneTech,
+      registeredPhoneEcomm,
+      registeredPhoneSocial,
+      registeredPhoneMessaging,
+    }
+    console.log(resPhone)
+    res.json({
+      data: resPhone,
+    }) 
+  })
+})
+
+
+
+
+
 
 export default router
