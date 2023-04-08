@@ -14,6 +14,7 @@ import {
 } from "firebase/storage";
 import { v4 as uuidv4, v4 } from "uuid";
 import { storage } from "../../firebase/config";
+import SeonService from 'services/SeonService';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -35,6 +36,13 @@ const SamplePage = () => {
             });
         });
     };
+
+    const data = { "url": 'https://api.seon.io/SeonRestService/phone-api/v1.4/917045141518' }
+
+    const call = async () => {
+        await SeonService.seonPhoneData(data).then((res) => { console.log(res) })
+    }
+
     // console.log(imageUpload);
     const theme = useTheme()
     return (
@@ -48,17 +56,17 @@ const SamplePage = () => {
                 </Typography>
             </MainCard>
 
-            <MainCard sx={{  marginTop: 2 }} title="Firebase Upload Component">
+            <MainCard sx={{ marginTop: 2 }} title="Firebase Upload Component">
                 <Grid alignItems="center" container spacing={2}>
                     <Grid item xs={11}>
                         <FormControl
                             fullWidth
-                        // error={Boolean(touched.email && errors.email)} 
-                        // sx={{ ...theme.typography.customInput }}
+                        // error={Boolean(touched.email && error s.email)} 
+                        sx={{ ...theme.typography.customInput }}
                         >
                             <OutlinedInput
                                 id="outlined-adornment-email-login"
-                                type="file"
+                                type="text"
                                 // value={values.email}
                                 name="image"
                                 // onBlur={handleBlur}
@@ -77,7 +85,7 @@ const SamplePage = () => {
                         </FormControl>
                     </Grid>
                     <Grid item xs={1}>
-                        <Button variant='outlined' sx={{ paddingBottom: 1, paddingTop: 1 }} onClick={uploadFile} >Upload</Button>
+                        <Button variant='outlined' sx={{ paddingBottom: 1, paddingTop: 1 }} onClick={call} >Upload</Button>
                     </Grid>
                 </Grid>
             </MainCard>

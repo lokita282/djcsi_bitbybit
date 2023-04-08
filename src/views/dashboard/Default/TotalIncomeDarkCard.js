@@ -13,8 +13,8 @@ import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
 
 // styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
-    backgroundColor: theme.palette.grey[700],
-    color: theme.palette.primary.light,
+    backgroundColor: theme.palette.grey[200],
+    color: theme.palette.grey[700],
     overflow: 'hidden',
     position: 'relative',
     // height: 100,
@@ -61,7 +61,7 @@ const TotalIncomeDarkCard = ({ isLoading }) => {
                                             ...theme.typography.commonAvatar,
                                             ...theme.typography.largeAvatar,
                                             backgroundColor: theme.palette.grey[50],
-                                            color: 'black'
+                                            color: 'white'
                                         }}
                                     >
                                         <TableChartOutlinedIcon fontSize="inherit" />
@@ -74,7 +74,7 @@ const TotalIncomeDarkCard = ({ isLoading }) => {
                                         mb: 0.45
                                     }}
                                     primary={
-                                        <Typography variant="h4" sx={{ color: '#fff' }}>
+                                        <Typography variant="h4" sx={{ color: 'black' }}>
                                             $203k
                                         </Typography>
                                     }
