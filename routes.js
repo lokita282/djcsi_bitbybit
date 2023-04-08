@@ -331,7 +331,20 @@ router.get(`/phone/regiTrue/:phone`, function (req, res, next) {
 })
 
 
-
+router.get(`/phoneDeets/:num`, function (req, res, next) {
+  var options = {
+    method: 'GET',
+    url: `https://api.apilayer.com/number_verification/validate?number=${req.params.num}`,
+    headers: {
+      apikey: 'd5IkdVPbGVbbcAP0E2ktkFDtGhP5INEx',
+    },
+    redirect: 'follow',
+  }
+  request(options, function (error, response) {
+    if (error) throw new Error(error)
+    console.log(response.body)
+  }).pipe(res)
+})
 
 
 
