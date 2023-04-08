@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import EmailIcon from '@mui/icons-material/Email';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import LanIcon from '@mui/icons-material/Lan';
-import { TextField, OutlinedInput, InputLabel, FormControl, FormHelperText, Grid, Button, MenuItem } from '@mui/material';
+import { TextField, OutlinedInput, InputLabel, FormControl, FormHelperText, Grid, Button, MenuItem, Divider, Chip } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import TotalIncomeDarkCard from 'views/dashboard/Default/TotalIncomeDarkCard';
 import SeonService from 'services/SeonService';
@@ -19,6 +19,8 @@ import CancelSharpIcon from '@mui/icons-material/CancelSharp';
 import UserDataCard from '../../ui-component/UserDataCard';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useEffect } from 'react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 
 const CompanyCard = ({ company, isRegistered }) => {
     return (
@@ -73,6 +75,9 @@ export default function Feature1() {
     };
     const [json, setJson] = useState('');
     const [finalData, setFinalData] = useState([]);
+    const [ipdata, setIPdata] = useState();
+    const [position, setPosition] = useState([]);
+
     const callEmail = async () => {
         await SeonService.seonEmailData(json)
             .then((res) => {
@@ -114,12 +119,14 @@ export default function Feature1() {
         await SeonService.seonIPData(json).then((res) => {
             // setLoading(true);
             console.log(res.data.data);
+            setIPdata(res.data.data);
+            setPosition([res.data.data.latitude, res.data.data.longitude]);
             // setLoading(false);
             //setFinalData([res.data.data]);
             // setLoad(false)
         });
     };
-
+    console.log(position);
     const [emailCategories, setEmailCategories] = React.useState('All');
 
     const handleChange1 = (event) => {
@@ -199,6 +206,50 @@ export default function Feature1() {
                         </Grid>
                     </Grid>
                 </MainCard>
+                {loading ? (
+                    <>
+                        <Box sx={{ display: 'flex' }}>
+                            <CircularProgress color="secondary" />
+                        </Box>
+                    </>
+                ) : (
+                    <>
+                        {emailCategories === 'All' ? (
+                            <>
+                                <div>
+                                    <Grid container spacing={1}>
+                                        {finalData?.map((companyObj) =>
+                                            Object.entries(companyObj).map(([companyName, companyData]) => (
+                                                // <CompanyCard key={companyName} company={companyName} isRegistered={companyData.registered} />
+                                                <Grid item xs={4}>
+                                                    <UserDataCard
+                                                        key={companyName}
+                                                        company={companyName}
+                                                        isRegistered={companyData?.registered}
+                                                    />
+                                                </Grid>
+                                            ))
+                                        )}
+                                    </Grid>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <Grid container spacing={1}>
+                                    {finalData?.map((companyObj) => (
+                                        <Grid item xs={4}>
+                                            <UserDataCard
+                                                key={companyObj.name}
+                                                company={companyObj.name}
+                                                isRegistered={companyObj?.isRegistered}
+                                            />
+                                        </Grid>
+                                    ))}
+                                </Grid>
+                            </>
+                        )}
+                    </>
+                )}
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <MainCard sx={{ marginTop: 2 }} title="Upload the user's mobile number">
@@ -292,54 +343,63 @@ export default function Feature1() {
                         </Grid>
                     </Grid>
                 </MainCard>
-            </TabPanel>
-            {loading ? (
-                <>
-                    <Box sx={{ display: 'flex' }}>
-                        <CircularProgress color="secondary" />
-                    </Box>
-                </>
-            ) : (
-                <>
-                    {emailCategories === 'All' ? (
-                        <>
-                            <div>
-                                <Grid container spacing={1}>
-                                    {finalData?.map((companyObj) =>
-                                        Object.entries(companyObj).map(([companyName, companyData]) => (
-                                            // <CompanyCard key={companyName} company={companyName} isRegistered={companyData.registered} />
-                                            <Grid item xs={4}>
-                                                <UserDataCard
-                                                    key={companyName}
-                                                    company={companyName}
-                                                    isRegistered={companyData?.registered}
-                                                />
-                                            </Grid>
-                                        ))
-                                    )}
-                                </Grid>
+                {ipdata ? (
+                    <div>
+                        <Card sx={{ display: 'flex' }}>
+                            <div id="map" style={{ height: '400px', width: '900px' }}>
+                                <MapContainer center={position} scrollWheelZoom={false} zoom={13} style={{ height: '100%' }}>
+                                    <TileLayer
+                                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                    />
+                                    <Marker position={position}>
+                                        <Popup>
+                                            A pretty CSS3 popup. <br /> Easily customizable.
+                                        </Popup>
+                                    </Marker>
+                                </MapContainer>
                             </div>
-                        </>
-                    ) : (
-                        <>
-                            <Grid container spacing={1}>
-                                {finalData?.map((companyObj) => (
-                                    <Grid item xs={4}>
-                                        <UserDataCard
-                                            key={companyObj.name}
-                                            company={companyObj.name}
-                                            isRegistered={companyObj?.isRegistered}
-                                        />
-                                    </Grid>
-                                ))}
-                            </Grid>
-                        </>
-                    )}
-                </>
-            )}
-
-            {/*             {finalData.account_details.map((data) => {})}
-            <TotalIncomeDarkCard /> */}
+                            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                <CardContent sx={{ flex: '1 0 auto', backgroundColor: '#f5f5f5', borderRadius: '10px', padding: '2rem' }}>
+                                    <Typography
+                                        component="div"
+                                        variant="h5"
+                                        sx={{ textAlign: 'center', fontSize: '2rem', marginBottom: '1rem', color: '#333333' }}
+                                    >
+                                        ISP Name - {ipdata.isp_name}
+                                    </Typography>
+                                    <Divider />
+                                    <div style={{ height: '20px' }}></div>
+                                    <Typography
+                                        variant="subtitle1"
+                                        color="text.secondary"
+                                        component="div"
+                                        sx={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: '#666666' }}
+                                    >
+                                        <Chip label="State" /> - {ipdata.state_prov}
+                                    </Typography>
+                                    <Typography
+                                        variant="subtitle1"
+                                        color="text.secondary"
+                                        component="div"
+                                        sx={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: '#666666' }}
+                                    >
+                                        <Chip label="City" /> - {ipdata.city}
+                                    </Typography>
+                                    <Typography
+                                        variant="subtitle1"
+                                        color="text.secondary"
+                                        component="div"
+                                        sx={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: '#666666' }}
+                                    >
+                                        <Chip label="Timezone" /> - {ipdata.timezone_offset}
+                                    </Typography>
+                                </CardContent>
+                            </Box>
+                        </Card>
+                    </div>
+                ) : null}
+            </TabPanel>
         </Box>
     );
 }
