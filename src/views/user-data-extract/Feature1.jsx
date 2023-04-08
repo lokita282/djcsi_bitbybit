@@ -68,6 +68,7 @@ export default function Feature1() {
     const [value, setValue] = React.useState(0);
     const [loading, setLoading] = React.useState(false);
     const [emailCategoryData, setEmailCategoryData] = React.useState();
+    const [phoneCategoryData, setPhoneCategoryData] = React.useState();
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -101,13 +102,23 @@ export default function Feature1() {
     };
 
     const callMobile = async () => {
-        await SeonService.seonPhoneData(json).then((res) => {
-            // setLoading(true);
-            console.log(res.data.data);
-            setFinalData([res.data.data.account_details]);
-            // setLoading(false);
-            // setLoad(false)
-        });
+        await SeonService.seonPhoneData(json)
+            .then((res) => {
+                // setLoading(true);
+                console.log(res.data.data);
+                setFinalData([res.data.data.account_details]);
+                // setLoading(false);
+                // setLoad(false)
+            })
+            .then(async () => {
+                await SeonService.seonPhoneCategoryData(json).then((res) => {
+                    // setLoading(true);
+                    console.log(res.data.data);
+                    setPhoneCategoryData(res.data.data);
+                    // setLoading(false);
+                    // setLoad(false)
+                });
+            });
     };
 
     const callIP = async () => {
@@ -121,10 +132,17 @@ export default function Feature1() {
     };
 
     const [emailCategories, setEmailCategories] = React.useState('All');
+    const [phoneCategories, setPhoneCategories] = React.useState('All');
 
     const handleChange1 = (event) => {
         setEmailCategories(event.target.value);
         setFinalData(emailCategoryData[event.target.value]);
+        console.log(event.target.value);
+    };
+
+    const handleChange2 = (event) => {
+        setPhoneCategories(event.target.value);
+        setFinalData(phoneCategoryData[event.target.value]);
         console.log(event.target.value);
     };
 
@@ -168,8 +186,8 @@ export default function Feature1() {
                     </Grid>
                 </MainCard>
                 <MainCard sx={{ marginTop: 2 }}>
-                    <Grid direction="row" justifyContent="center" alignItems="baseline" container>
-                        <Grid item xs={10}>
+                    <Grid direction="row" justifyContent="center" container>
+                        <Grid item xs={10} sx={{ paddingTop: 2 }}>
                             <Typography variant="h3">Registered Websites</Typography>
                         </Grid>
                         <Grid item xs={2}>
@@ -180,7 +198,7 @@ export default function Feature1() {
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
                                         value={emailCategories}
-                                        label="Age"
+                                        label="Categories"
                                         onChange={handleChange1}
                                     >
                                         <MenuItem value={'All'}>All</MenuItem>
@@ -234,9 +252,11 @@ export default function Feature1() {
                     </Grid>
                 </MainCard>
                 <MainCard sx={{ marginTop: 2 }}>
-                    <Grid direction="row" justifyContent="center" alignItems="baseline" container>
+                    <Grid direction="row" justifyContent="center" container>
                         <Grid item xs={10}>
-                            <Typography variant="h3">Registered Websites</Typography>
+                            <Typography variant="h3" sx={{ paddingTop: 2 }}>
+                                Registered Websites
+                            </Typography>
                         </Grid>
                         <Grid item xs={2}>
                             <Box sx={{ minWidth: 120 }}>
@@ -245,13 +265,15 @@ export default function Feature1() {
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
-                                        value={emailCategories}
-                                        label="Age"
-                                        onChange={handleChange1}
+                                        value={phoneCategories}
+                                        label="Categories "
+                                        onChange={handleChange2}
                                     >
-                                        <MenuItem value={10}>Ten</MenuItem>
-                                        <MenuItem value={20}>Twenty</MenuItem>
-                                        <MenuItem value={30}>Thirty</MenuItem>
+                                        <MenuItem value={'All'}>All</MenuItem>
+                                        <MenuItem value={'registeredPhoneTech'}>Technology</MenuItem>
+                                        <MenuItem value={'registeredPhoneEcomm'}>E-commerce</MenuItem>
+                                        <MenuItem value={'registeredPhoneSocial'}>Social Media</MenuItem>
+                                        <MenuItem value={'registeredPhoneMessaging'}>Messaging</MenuItem>
                                     </Select>
                                 </FormControl>
                             </Box>
@@ -301,7 +323,7 @@ export default function Feature1() {
                 </>
             ) : (
                 <>
-                    {emailCategories === 'All' ? (
+                    {phoneCategories === 'All' || emailCategories === 'All' ? (
                         <>
                             <div>
                                 <Grid container spacing={1}>

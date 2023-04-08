@@ -79,6 +79,7 @@ const SamplePage = () => {
             // setLoad(false)
         });
     };
+
     const call1 = async () => {
         await SeonService.seonPhoneData(json).then((res) => {
             console.log(res.data.data);
@@ -96,22 +97,22 @@ const SamplePage = () => {
 
     console.log(finalData);
 
-    const getWhatsapp = async () => {
-        let res = await fetch(
-            'https://api.apify.com/v2/acts/inutil_labs~wscrp-free/runs?token=apify_api_d7Q3arjXU5CfOpR99cpeOhzUn8boR04B9RGP',
-            {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ numbers: [json] }),
-                mode: 'cors'
-            }
-        );
-        let data = await res.json();
-        console.log([data]);
-    };
+    // const getWhatsapp = async () => {
+    //     let res = await fetch(
+    //         'https://api.apify.com/v2/acts/inutil_labs~wscrp-free/runs?token=apify_api_d7Q3arjXU5CfOpR99cpeOhzUn8boR04B9RGP',
+    //         {
+    //             method: 'POST',
+    //             headers: { 'Content-Type': 'application/json' },
+    //             body: JSON.stringify({ numbers: [json] }),
+    //             mode: 'cors'
+    //         }
+    //     );
+    //     let data = await res.json();
+    //     console.log([data]);
+    // };
 
-    console.log(finalData);
-    console.log(whatsapp);
+    // console.log(finalData);
+    // console.log(whatsapp);
     return (
         <>
             <MainCard title="Samle Card">
