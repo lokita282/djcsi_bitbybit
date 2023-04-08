@@ -62,7 +62,7 @@ var registeredEmailTravel = []
 var registeredEmailOTT = []
 var registeredEmailEducation = []
 
-var resEmail = {}
+// var resEmail = {}
 
 //email api - all
 router.get(`/email/:email`, function (req, res, next) {
@@ -81,6 +81,7 @@ router.get(`/email/:email`, function (req, res, next) {
 })
 
 router.get(`/email/regiTrue/:email`, function (req, res, next) {
+  var resEmail = {}
   var options = {
     method: 'GET',
     url: `https://api.seon.io/SeonRestService/email-api/v2.2/${req.params.email}`,
@@ -95,69 +96,81 @@ router.get(`/email/regiTrue/:email`, function (req, res, next) {
 
     var x = JSON.parse(response.body)
     var accounts = Object.keys(x.data.account_details)
-
+    registeredEmailTech = []
+    registeredEmailEcomm = []
+    registeredEmailSocial = []
+    registeredEmailSearch = []
+    registeredEmailNews = []
+    registeredEmailMusic = []
+    registeredEmailTravel = []
+    registeredEmailOTT = []
+    registeredEmailEducation = []
     accounts.forEach((account) => {
+      resEmail = {}
       if (emailTech.includes(account)) {
+        resEmail = {}
         if (x.data.account_details[account].registered === true) {
           registeredEmailTech.push({
             name: account,
-            isRegisered: x.data.account_details[account].registered,
+            isRegistered: x.data.account_details[account].registered,
+            // icon: 
           })
+          // resEmail = { ...resEmail, registeredEmailTech }
         }
       } else if (emailEcomm.includes(account)) {
         if (x.data.account_details[account].registered === true) {
           registeredEmailEcomm.push({
             name: account,
-            isRegisered: x.data.account_details[account].registered,
+            isRegistered: x.data.account_details[account].registered,
           })
         }
       } else if (emailSocial.includes(account)) {
         if (x.data.account_details[account].registered === true) {
           registeredEmailSocial.push({
             name: account,
-            isRegisered: x.data.account_details[account].registered,
+            isRegistered: x.data.account_details[account].registered,
           })
         }
       } else if (emailSearch.includes(account)) {
         if (x.data.account_details[account].registered === true) {
           registeredEmailSearch.push({
             name: account,
-            isRegisered: x.data.account_details[account].registered,
+            isRegistered: x.data.account_details[account].registered,
           })
         }
       } else if (emailNews.includes(account)) {
         if (x.data.account_details[account].registered === true) {
           registeredEmailNews.push({
             name: account,
-            isRegisered: x.data.account_details[account].registered,
+            isRegistered: x.data.account_details[account].registered,
           })
         }
       } else if (emailMusic.includes(account)) {
         if (x.data.account_details[account].registered === true) {
           registeredEmailMusic.push({
             name: account,
-            isRegisered: x.data.account_details[account].registered,
+            isRegistered: x.data.account_details[account].registered,
           })
         }
       } else if (emailTravel.includes(account)) {
         if (x.data.account_details[account].registered === true) {
           registeredEmailTravel.push({
             name: account,
-            isRegisered: x.data.account_details[account].registered,
+            isRegistered: x.data.account_details[account].registered,
           })
         }
       } else if (emailOTT.includes(account)) {
         if (x.data.account_details[account].registered === true) {
           registeredEmailOTT.push({
             name: account,
-            isRegisered: x.data.account_details[account].registered,
+            isRegistered: x.data.account_details[account].registered,
           })
         }
       } else if (emailEducation.includes(account)) {
         if (x.data.account_details[account].registered === true) {
           registeredEmailEducation.push({
             name: account,
-            isRegisered: x.data.account_details[account].registered,
+            isRegistered: x.data.account_details[account].registered,
           })
         }
       }

@@ -11,6 +11,7 @@ import morgan from'morgan'
 // import productRouter from'./routes/product.js'
 // import quoationRouter from'./routes/quotation.js'
 import router from './routes.js'
+import cron from 'node-cron'
 
 import cors from 'cors'
 
@@ -25,6 +26,11 @@ app.use(cors())
 app.use(express.json())
 
 app.use('/seon', router)
+
+cron.schedule('*/10 * * * *', () => {
+  console.log('Cron job running every 10 minutes')
+})
+
 // app.use('/api/user', userRouter)
 // app.use('/api/query', queryRouter)
 // app.use('/api/product', productRouter)
