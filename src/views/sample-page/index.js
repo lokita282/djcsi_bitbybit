@@ -20,11 +20,25 @@ import {
 import { blue } from '@mui/material/colors';
 import { styled, useTheme } from '@mui/material/styles';
 import TotalIncomeDarkCard from 'views/dashboard/Default/TotalIncomeDarkCard';
-import { ref, uploadBytes, getDownloadURL, listAll, list } from 'firebase/storage';
-import { v4 as uuidv4, v4 } from 'uuid';
-import { storage } from '../../firebase/config';
-import SeonService from 'services/SeonService';
+import { gridSpacing } from 'store/constant';
+// material-ui
 
+// project imports
+import EarningCard from 'views/dashboard/Default/EarningCard';
+import PopularCard from 'views/dashboard/Default/PopularCard';
+import TotalOrderLineChartCard from 'views/dashboard/Default/TotalOrderLineChartCard';
+import TotalIncomeLightCard from 'views/dashboard/Default/TotalIncomeLightCard';
+import TotalGrowthBarChart from 'views/dashboard/Default/TotalGrowthBarChart';
+import {
+    ref,
+    uploadBytes,
+    getDownloadURL,
+    listAll,
+    list,
+} from "firebase/storage";
+import { v4 as uuidv4, v4 } from "uuid";
+import { storage } from "../../firebase/config";
+import SeonService from 'services/SeonService';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 
@@ -74,6 +88,12 @@ const SamplePage = () => {
         });
     };
 
+    const theme = useTheme();
+    const [isLoading, setLoading] = useState(true);
+    useEffect(() => {
+        setLoading(false);
+    }, []);
+
     console.log(finalData);
 
     const getWhatsapp = async () => {
@@ -92,7 +112,6 @@ const SamplePage = () => {
 
     console.log(finalData);
     console.log(whatsapp);
-    const theme = useTheme();
     return (
         <>
             <MainCard title="Samle Card">
@@ -104,73 +123,36 @@ const SamplePage = () => {
                 </Typography>
             </MainCard>
 
-            <MainCard sx={{ marginTop: 2 }} title="Firebase Upload Component">
-                <Grid alignItems="center" container spacing={2}>
-                    <Grid item xs={11}>
-                        <FormControl
-                            fullWidth
-                            // error={Boolean(touched.email && error s.email)}
-                            // sx={{ ...theme.typography.customInput }}
-                        >
-                            <OutlinedInput
-                                id="outlined-adornment-email-login"
-                                type="text"
-                                // value={values.email}
-                                name="phone_no"
-                                // onBlur={handleBlur}
-                                onChange={(e) => setJson(e.target.value)}
-                                label="Number"
-                                inputProps={{}}
-                            />
-                            {/* {touched.email && errors.email && (
-                        <FormHelperText error id="standard-weight-helper-text-email-login">
-                            {errors.email}
-                        </FormHelperText>
-                    )} */}
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={1}>
-                        <Button variant="outlined" sx={{ paddingBottom: 1, paddingTop: 1 }} onClick={call}>
-                            Upload
-                        </Button>
+            <Grid container spacing={gridSpacing}>
+                <Grid item xs={12}>
+                    <Grid container spacing={gridSpacing}>
+                        <Grid item lg={4} md={6} sm={6} xs={12}>
+                            {/* <EarningCard isLoading={isLoading} /> */}
+                        </Grid>
+                        <Grid item lg={4} md={6} sm={6} xs={12}>
+                            {/* <TotalOrderLineChartCard isLoading={isLoading} /> */}
+                        </Grid>
+                        <Grid item lg={4} md={12} sm={12} xs={12}>
+                            <Grid container spacing={gridSpacing}>
+                                <Grid item sm={6} xs={12} md={6} lg={12}>
+                                    {/* <TotalIncomeDarkCard isLoading={isLoading} /> */}
+                                </Grid>
+                                <Grid item sm={6} xs={12} md={6} lg={12}>
+                                    {/* <TotalIncomeLightCard isLoading={isLoading} /> */}
+                                </Grid>
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
-            </MainCard>
-            <MainCard sx={{ marginTop: 2 }} title="Firebase Upload Component">
-                <Grid alignItems="center" container spacing={2}>
-                    <Grid item xs={11}>
-                        <FormControl
-                            fullWidth
-                            // error={Boolean(touched.email && error s.email)}
-                            // sx={{ ...theme.typography.customInput }}
-                        >
-                            <OutlinedInput
-                                id="outlined-adornment-email-login"
-                                type="text"
-                                // value={values.email}
-                                name="phone_no"
-                                // onBlur={handleBlur}
-                                onChange={(e) => setJson(e.target.value)}
-                                label="Number"
-                                inputProps={{}}
-                            />
-                            {/* {touched.email && errors.email && (
-                        <FormHelperText error id="standard-weight-helper-text-email-login">
-                            {errors.email}
-                        </FormHelperText>
-                    )} */}
-                        </FormControl>
+                <Grid item xs={12}>
+                    <Grid container spacing={gridSpacing}>
+                        <Grid item xs={12} md={8}>
+                            <TotalGrowthBarChart isLoading={isLoading} />
+                        </Grid>
+                        <Grid item xs={12} md={4}>
+                            {/* <PopularCard isLoading={isLoading} /> */}
+                        </Grid>
                     </Grid>
-                    <Grid item xs={1}>
-                        <Button variant="outlined" sx={{ paddingBottom: 1, paddingTop: 1 }} onClick={getWhatsapp}>
-                            Upload
-                        </Button>
-                    </Grid>
-                </Grid>
-            </MainCard>
-            <Grid container>
-                <Grid item xs={4}>
-                    <TotalIncomeDarkCard />
                 </Grid>
             </Grid>
             {linkedin ? (
