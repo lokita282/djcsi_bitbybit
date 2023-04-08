@@ -87,7 +87,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
             ApexCharts.exec(`bar-chart`, 'updateOptions', newChartData);
         }
     }, [navType, primary200, primaryDark, secondaryMain, secondaryLight, primary, darkLight, grey200, isLoading, grey500]);
-
+    console.log(chartData);
     return (
         <>
             {isLoading ? (

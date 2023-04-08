@@ -21,6 +21,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import PersonalityService from 'services/PersonalityService';
 
 const CompanyCard = ({ company, isRegistered }) => {
     return (
@@ -92,6 +93,11 @@ export default function Feature1() {
                     setEmailCategoryData(res.data.data);
                     // setLoading(false);
                     // setLoad(false)
+                });
+            })
+            .then(async () => {
+                await PersonalityService.personality(emailCategoryData).then((res) => {
+                    console.log('personality', res);
                 });
             });
     };
@@ -192,7 +198,7 @@ export default function Feature1() {
                         </Grid>
                     </Grid>
                 </MainCard>
-                <MainCard sx={{ marginTop: 2 }}>
+                <MainCard sx={{ marginTop: 2, marginBottom: 2 }}>
                     <Grid direction="row" justifyContent="center" container>
                         <Grid item xs={10} sx={{ paddingTop: 2 }}>
                             <Typography variant="h3">Registered Websites</Typography>
@@ -235,7 +241,7 @@ export default function Feature1() {
                         {emailCategories === 'All' ? (
                             <>
                                 <div>
-                                    <Grid container spacing={1}>
+                                    <Grid container spacing={2}>
                                         {finalData?.map((companyObj) =>
                                             Object.entries(companyObj).map(([companyName, companyData]) => (
                                                 // <CompanyCard key={companyName} company={companyName} isRegistered={companyData.registered} />
@@ -253,7 +259,7 @@ export default function Feature1() {
                             </>
                         ) : (
                             <>
-                                <Grid container spacing={1}>
+                                <Grid container spacing={2}>
                                     {finalData?.map((companyObj) => (
                                         <Grid item xs={4}>
                                             <UserDataCard
@@ -302,7 +308,7 @@ export default function Feature1() {
                         </Grid>
                     </Grid>
                 </MainCard>
-                <MainCard sx={{ marginTop: 2 }}>
+                <MainCard sx={{ marginTop: 2, marginBottom: 2 }}>
                     <Grid direction="row" justifyContent="center" container>
                         <Grid item xs={10}>
                             <Typography variant="h3" sx={{ paddingTop: 2 }}>
@@ -331,6 +337,50 @@ export default function Feature1() {
                         </Grid>
                     </Grid>
                 </MainCard>
+                {loading ? (
+                    <>
+                        <Box sx={{ display: 'flex' }}>
+                            <CircularProgress color="secondary" />
+                        </Box>
+                    </>
+                ) : (
+                    <>
+                        {phoneCategories === 'All' ? (
+                            <>
+                                <div>
+                                    <Grid container spacing={2}>
+                                        {finalData?.map((companyObj) =>
+                                            Object.entries(companyObj).map(([companyName, companyData]) => (
+                                                // <CompanyCard key={companyName} company={companyName} isRegistered={companyData.registered} />
+                                                <Grid item xs={4}>
+                                                    <UserDataCard
+                                                        key={companyName}
+                                                        company={companyName}
+                                                        isRegistered={companyData?.registered}
+                                                    />
+                                                </Grid>
+                                            ))
+                                        )}
+                                    </Grid>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <Grid container spacing={2}>
+                                    {finalData?.map((companyObj) => (
+                                        <Grid item xs={4}>
+                                            <UserDataCard
+                                                key={companyObj.name}
+                                                company={companyObj.name}
+                                                isRegistered={companyObj?.isRegistered}
+                                            />
+                                        </Grid>
+                                    ))}
+                                </Grid>
+                            </>
+                        )}
+                    </>
+                )}
             </TabPanel>
             <TabPanel value={value} index={2}>
                 <MainCard sx={{ marginTop: 2 }} title="Upload the user's IP Address">
