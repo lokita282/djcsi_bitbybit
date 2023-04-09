@@ -9,10 +9,6 @@ import EmailIcon from '@mui/icons-material/Email';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import LanIcon from '@mui/icons-material/Lan';
 import { TextField, OutlinedInput, InputLabel, FormControl, FormHelperText, Grid, Button, MenuItem, Divider, Chip } from '@mui/material';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/bundle';
-import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import SeonService from 'services/SeonService';
 import MainCard from 'ui-component/cards/MainCard';
@@ -32,14 +28,7 @@ import TotalOrderLineChartCard from 'views/dashboard/Default/TotalOrderLineChart
 import TotalIncomeDarkCard from 'views/dashboard/Default/TotalIncomeDarkCard';
 import TotalIncomeLightCard from 'views/dashboard/Default/TotalIncomeLightCard';
 import TotalGrowthBarChart from 'views/dashboard/Default/TotalGrowthBarChart';
-import LinkedinCard from '../../ui-component/emailSwiper/LinkedinCard';
-import GoogleCard from '../../ui-component/emailSwiper/GoogleCard';
-import GravatarCard from '../../ui-component/emailSwiper/GravatarCard';
-import SkypeCard from '../../ui-component/emailSwiper/SkypeCard';
-import OkCard from '../../ui-component/emailSwiper/OkCard';
-import AirbnbCard from '../../ui-component/emailSwiper/SkypeCard';
 import { gridSpacing } from 'store/constant';
-import axios from 'axios';
 
 const CompanyCard = ({ company, isRegistered }) => {
     return (
@@ -97,34 +86,19 @@ export default function Feature1() {
     const [finalData, setFinalData] = useState([]);
     const [ipdata, setIPdata] = useState();
     const [position, setPosition] = useState([]);
-    const [linkedin, setLinkedin] = useState();
-    const [google, setGoogle] = useState();
-    const [gravatar, setGravatar] = useState();
-    const [skype, setSkype] = useState();
-    const [ok, setOk] = useState();
-    const [airbnb, setAirbnb] = useState();
-    const [breach, setBreach] = useState();
 
     const callEmail = async () => {
-        setLoading(true);
         await SeonService.seonEmailData(json)
             .then((res) => {
                 console.log(res.data.data.account_details);
                 setFinalData([res.data.data.account_details]);
-                setLinkedin(res.data.data.account_details.linkedin);
-                setGoogle(res.data.data.account_details.google);
-                setGravatar(res.data.data.account_details.gravatar);
-                setSkype(res.data.data.account_details.skype);
-                setOk(res.data.data.account_details.ok);
-                setAirbnb(res.data.data.account_details.airbnb);
-                setBreach(res.data.data.breach_details);
             })
             .then(async () => {
                 await SeonService.seonEmailCategoryData(json).then((res) => {
                     // setLoading(true);
                     console.log(res.data.data);
                     setEmailCategoryData(res.data.data);
-                    setLoading(false);
+                    // setLoading(false);
                     // setLoad(false)
                 });
             })
@@ -144,37 +118,126 @@ export default function Feature1() {
     };
 
     const [personality, setPersonality] = useState();
-    const [mostProbSite, setMostProbSite] = useState();
 
-    let data = JSON.stringify({
-        data: emailCategoryData
-    });
+    const personalityCall = async () => {
+        var myHeaders = new Headers();
+        myHeaders.append('Content-Type', 'application/json');
 
-    let config = {
-        method: 'post',
-        maxBodyLength: Infinity,
-        url: 'https://41c3-136-232-1-174.ngrok-free.app/personality/',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        data: data
-    };
-
-    axios
-        .request(config)
-        .then((response) => {
-            console.log(response.data);
-            setPersonality(response.data.most_visited);
-            setMostProbSite(response.data.next);
-        })
-        .catch((error) => {
-            console.log(error);
+        var raw = JSON.stringify({
+            data: {
+                registeredEmailTech: [
+                    {
+                        name: 'apple',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'github',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'adobe',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'wordpress',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'atlassian',
+                        isRegistered: true
+                    }
+                ],
+                registeredEmailEcomm: [
+                    {
+                        name: 'amazon',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'flipkart',
+                        isRegistered: true
+                    }
+                ],
+                registeredEmailSocial: [
+                    {
+                        name: 'google',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'gravatar',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'instagram',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'linkedin',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'microsoft',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'pinterest',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'tumblr',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'twitter',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'yahoo',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'discord',
+                        isRegistered: true
+                    }
+                ],
+                registeredEmailSearch: [],
+                registeredEmailNews: [],
+                registeredEmailMusic: [
+                    {
+                        name: 'spotify',
+                        isRegistered: true
+                    }
+                ],
+                registeredEmailTravel: [],
+                registeredEmailOTT: [],
+                registeredEmailEducation: [
+                    {
+                        name: 'archiveorg',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'quora',
+                        isRegistered: true
+                    }
+                ]
+            }
         });
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch('https://41c3-136-232-1-174.ngrok-free.app/personality/', requestOptions)
+            .then((response) => console.log(response.json()))
+            .then((result) => console.log(result))
+            .catch((error) => console.log('error', error));
+    };
 
     console.log(personality);
 
     const callMobile = async () => {
-        setLoading(true);
         await SeonService.seonPhoneData(json)
             .then((res) => {
                 // setLoading(true);
@@ -188,20 +251,19 @@ export default function Feature1() {
                     // setLoading(true);
                     console.log(res.data.data);
                     setPhoneCategoryData(res.data.data);
-                    setLoading(false);
+                    // setLoading(false);
                     // setLoad(false)
                 });
             });
     };
 
     const callIP = async () => {
-        setLoading(true);
         await SeonService.seonIPData(json).then((res) => {
             // setLoading(true);
             console.log(res.data.data);
             setIPdata(res.data.data);
             setPosition([res.data.data.latitude, res.data.data.longitude]);
-            setLoading(false);
+            // setLoading(false);
             //setFinalData([res.data.data]);
             // setLoad(false)
         });
@@ -324,7 +386,6 @@ export default function Feature1() {
                     <>
                         <Box sx={{ display: 'flex' }}>
                             <CircularProgress color="secondary" />
-                            <Typography variant="h3"> Analyzing accounts based on email id...</Typography>
                         </Box>
                     </>
                 ) : (
@@ -352,87 +413,17 @@ export default function Feature1() {
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                    {personality ? (
-                                        <Grid item xs={12}>
-                                            <Grid container spacing={gridSpacing}>
-                                                <Grid item xs={12} md={8}>
-                                                    <TotalGrowthBarChart isLoading={isLoading} />
-                                                </Grid>
-                                                {/* <div> */}
-                                                <Grid item xs={12} md={4}>
-                                                    {/* <PopularCard isLoading={isLoading} /> */}
-                                                    {personality?.data}
-                                                    <Swiper
-                                                        slidesPerView={1}
-                                                        modules={[Autoplay]}
-                                                        autoplay={{ delay: 3500 }}
-                                                        loop={true}
-                                                        spaceBetween={10}
-                                                    >
-                                                        <SwiperSlide>
-                                                            <LinkedinCard linkedin={linkedin} />
-                                                        </SwiperSlide>
-                                                        <SwiperSlide>
-                                                            <GoogleCard google={google} />
-                                                        </SwiperSlide>
-                                                        <SwiperSlide>
-                                                            <GravatarCard gravatar={gravatar} />
-                                                        </SwiperSlide>
-                                                        <SwiperSlide>
-                                                            <SkypeCard skype={skype} />
-                                                        </SwiperSlide>
-                                                        <SwiperSlide>
-                                                            <OkCard ok={ok} />
-                                                        </SwiperSlide>
-                                                    </Swiper>
-
-                                                    <Card
-                                                        style={{
-                                                            display: 'flex',
-                                                            flexDirection: 'column',
-                                                            alignItems: 'center',
-                                                            marginTop: '2rem',
-                                                            padding: '1rem',
-                                                            maxWidth: 375,
-                                                            minHeight: 180
-                                                        }}
-                                                    >
-                                                        {console.log('jfcvfkve', linkedin)}
-                                                        <div
-                                                            style={{
-                                                                display: 'flex',
-                                                                justifyContent: 'center',
-                                                                alignItems: 'center',
-                                                                marginBottom: '1rem'
-                                                            }}
-                                                        >
-                                                            <div>
-                                                                <Typography
-                                                                    variant="h6"
-                                                                    component="h2"
-                                                                    style={{
-                                                                        fontWeight: 'bold',
-                                                                        fontSize: '1.5rem',
-                                                                        letterSpacing: '0.1rem',
-                                                                        paddingBottom: '1rem',
-                                                                        paddingTop: '1rem',
-                                                                        paddingLeft: '5px'
-                                                                    }}
-                                                                >
-                                                                    Analysis of user activity
-                                                                </Typography>
-                                                                <Typography variant="body1" color="initial">
-                                                                    The user seems to be more active on {personality}. The next possible
-                                                                    website the user can create an account on is {mostProbSite}.
-                                                                </Typography>
-                                                            </div>
-                                                        </div>
-                                                    </Card>
-                                                </Grid>
+                                    <Grid item xs={12}>
+                                        <Grid container spacing={gridSpacing}>
+                                            <Grid item xs={12} md={8}>
+                                                <TotalGrowthBarChart isLoading={isLoading} />
                                             </Grid>
-                                            {/* </div> */}
+                                            <Grid item xs={12} md={4}>
+                                                {/* <PopularCard isLoading={isLoading} /> */}
+                                                {personality?.data}
+                                            </Grid>
                                         </Grid>
-                                    ) : null}
+                                    </Grid>
                                 </Grid>
                             </>
                         ) : null}
@@ -472,47 +463,6 @@ export default function Feature1() {
                         )}
                     </>
                 )}
-                {breach ? (
-                    <div>
-                        <MainCard title="Security Breaches" sx={{ marginTop: '20px' }}>
-                            <Typography variant="h3">Number of breaches: {breach.number_of_breaches}</Typography>
-                            <Typography variant="body2" sx={{ marginTop: '20px', fontSize: '18px' }}>
-                                These security breaches can prove to be crucial to gaining more information about an individual, as the
-                                purported breach usually indicates that some private or sensitive data of the person of interest has been
-                                made public.This can help widen the investigative scenarios surrounding the said individual.
-                            </Typography>
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    height: '20vh'
-                                }}
-                            >
-                                {breach.breaches.map((item) => (
-                                    <>
-                                        <Card
-                                            sx={{
-                                                minWidth: 275,
-                                                margin: '0.5rem',
-                                                background: 'linear-gradient(to bottom right, #f2f2f2, #d9d9d9)'
-                                            }}
-                                        >
-                                            <CardContent>
-                                                <Typography variant="h4" gutterBottom>
-                                                    {item.name}
-                                                </Typography>
-                                                <Divider />
-                                                <Typography color="textSecondary">{item.domain}</Typography>
-                                                <Typography variant="body2">{item.date}</Typography>
-                                            </CardContent>
-                                        </Card>
-                                    </>
-                                ))}
-                            </div>
-                        </MainCard>
-                    </div>
-                ) : null}
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <MainCard sx={{ marginTop: 2 }} title="Upload the user's mobile number">
@@ -580,7 +530,6 @@ export default function Feature1() {
                     <>
                         <Box sx={{ display: 'flex' }}>
                             <CircularProgress color="secondary" />
-                            <Typography variant="h3"> Analyzing accounts based on mobile number...</Typography>
                         </Box>
                     </>
                 ) : (
@@ -619,6 +568,7 @@ export default function Feature1() {
                                 </Grid>
                             </>
                         )}
+                        asdfgh
                     </>
                 )}
             </TabPanel>
@@ -655,75 +605,62 @@ export default function Feature1() {
                         </Grid>
                     </Grid>
                 </MainCard>
-                {loading ? (
-                    <>
-                        <Box sx={{ display: 'flex' }}>
-                            <CircularProgress color="secondary" />
-                            <Typography variant="h3"> Analyzing accounts based on IP Address...</Typography>
-                        </Box>
-                    </>
-                ) : (
-                    <>
-                        {ipdata ? (
-                            <div>
-                                <Card sx={{ display: 'flex' }}>
-                                    <div id="map" style={{ height: '400px', width: '900px' }}>
-                                        <MapContainer center={position} scrollWheelZoom={false} zoom={13} style={{ height: '100%' }}>
-                                            <TileLayer
-                                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                            />
-                                            <Marker position={position}>
-                                                <Popup>
-                                                    A pretty CSS3 popup. <br /> Easily customizable.
-                                                </Popup>
-                                            </Marker>
-                                        </MapContainer>
-                                    </div>
-                                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                        <CardContent
-                                            sx={{ flex: '1 0 auto', backgroundColor: '#f5f5f5', borderRadius: '10px', padding: '2rem' }}
-                                        >
-                                            <Typography
-                                                component="div"
-                                                variant="h5"
-                                                sx={{ textAlign: 'center', fontSize: '2rem', marginBottom: '1rem', color: '#333333' }}
-                                            >
-                                                ISP Name - {ipdata.isp_name}
-                                            </Typography>
-                                            <Divider />
-                                            <div style={{ height: '20px' }}></div>
-                                            <Typography
-                                                variant="subtitle1"
-                                                color="text.secondary"
-                                                component="div"
-                                                sx={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: '#666666' }}
-                                            >
-                                                <Chip label="State" /> - {ipdata.state_prov}
-                                            </Typography>
-                                            <Typography
-                                                variant="subtitle1"
-                                                color="text.secondary"
-                                                component="div"
-                                                sx={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: '#666666' }}
-                                            >
-                                                <Chip label="City" /> - {ipdata.city}
-                                            </Typography>
-                                            <Typography
-                                                variant="subtitle1"
-                                                color="text.secondary"
-                                                component="div"
-                                                sx={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: '#666666' }}
-                                            >
-                                                <Chip label="Timezone" /> - {ipdata.timezone_offset}
-                                            </Typography>
-                                        </CardContent>
-                                    </Box>
-                                </Card>
+                {ipdata ? (
+                    <div>
+                        <Card sx={{ display: 'flex' }}>
+                            <div id="map" style={{ height: '400px', width: '900px' }}>
+                                <MapContainer center={position} scrollWheelZoom={false} zoom={13} style={{ height: '100%' }}>
+                                    <TileLayer
+                                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                    />
+                                    <Marker position={position}>
+                                        <Popup>
+                                            A pretty CSS3 popup. <br /> Easily customizable.
+                                        </Popup>
+                                    </Marker>
+                                </MapContainer>
                             </div>
-                        ) : null}
-                    </>
-                )}
+                            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                <CardContent sx={{ flex: '1 0 auto', backgroundColor: '#f5f5f5', borderRadius: '10px', padding: '2rem' }}>
+                                    <Typography
+                                        component="div"
+                                        variant="h5"
+                                        sx={{ textAlign: 'center', fontSize: '2rem', marginBottom: '1rem', color: '#333333' }}
+                                    >
+                                        ISP Name - {ipdata.isp_name}
+                                    </Typography>
+                                    <Divider />
+                                    <div style={{ height: '20px' }}></div>
+                                    <Typography
+                                        variant="subtitle1"
+                                        color="text.secondary"
+                                        component="div"
+                                        sx={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: '#666666' }}
+                                    >
+                                        <Chip label="State" /> - {ipdata.state_prov}
+                                    </Typography>
+                                    <Typography
+                                        variant="subtitle1"
+                                        color="text.secondary"
+                                        component="div"
+                                        sx={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: '#666666' }}
+                                    >
+                                        <Chip label="City" /> - {ipdata.city}
+                                    </Typography>
+                                    <Typography
+                                        variant="subtitle1"
+                                        color="text.secondary"
+                                        component="div"
+                                        sx={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: '#666666' }}
+                                    >
+                                        <Chip label="Timezone" /> - {ipdata.timezone_offset}
+                                    </Typography>
+                                </CardContent>
+                            </Box>
+                        </Card>
+                    </div>
+                ) : null}
             </TabPanel>
         </Box>
     );
