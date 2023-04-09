@@ -40,7 +40,7 @@ import OkCard from '../../ui-component/emailSwiper/OkCard';
 import AirbnbCard from '../../ui-component/emailSwiper/SkypeCard';
 import { gridSpacing } from 'store/constant';
 import axios from 'axios';
-
+import { Player } from '@lottiefiles/react-lottie-player';
 const CompanyCard = ({ company, isRegistered }) => {
     return (
         <Card>
@@ -322,9 +322,14 @@ export default function Feature1() {
                 </MainCard>
                 {loading ? (
                     <>
-                        <Box sx={{ display: 'flex' }}>
-                            <CircularProgress color="secondary" />
-                            <Typography variant="h3"> Analyzing accounts based on email id...</Typography>
+                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                            <Player
+                                autoplay
+                                loop
+                                src="https://assets8.lottiefiles.com/packages/lf20_96cnyxkh.json"
+                                style={{ height: '150px', width: '150px' }}
+                            ></Player>
+                            <Typography variant="h3"> Analyzing accounts based on email address...</Typography>
                         </Box>
                     </>
                 ) : (
@@ -578,8 +583,13 @@ export default function Feature1() {
                 </MainCard>
                 {loading ? (
                     <>
-                        <Box sx={{ display: 'flex' }}>
-                            <CircularProgress color="secondary" />
+                        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                            <Player
+                                autoplay
+                                loop
+                                src="https://assets8.lottiefiles.com/packages/lf20_96cnyxkh.json"
+                                style={{ height: '150px', width: '150px' }}
+                            ></Player>
                             <Typography variant="h3"> Analyzing accounts based on mobile number...</Typography>
                         </Box>
                     </>
@@ -657,8 +667,13 @@ export default function Feature1() {
                 </MainCard>
                 {loading ? (
                     <>
-                        <Box sx={{ display: 'flex' }}>
-                            <CircularProgress color="secondary" />
+                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                            <Player
+                                autoplay
+                                loop
+                                src="https://assets8.lottiefiles.com/packages/lf20_96cnyxkh.json"
+                                style={{ height: '150px', width: '150px' }}
+                            ></Player>
                             <Typography variant="h3"> Analyzing accounts based on IP Address...</Typography>
                         </Box>
                     </>
