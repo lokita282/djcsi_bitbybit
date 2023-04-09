@@ -14,7 +14,8 @@ import {
     CardMedia,
     CardContent,
     CardHeader,
-    CardActionArea
+    CardActionArea,
+    Divider
 } from '@mui/material';
 
 import { blue } from '@mui/material/colors';
@@ -29,15 +30,9 @@ import PopularCard from 'views/dashboard/Default/PopularCard';
 import TotalOrderLineChartCard from 'views/dashboard/Default/TotalOrderLineChartCard';
 import TotalIncomeLightCard from 'views/dashboard/Default/TotalIncomeLightCard';
 import TotalGrowthBarChart from 'views/dashboard/Default/TotalGrowthBarChart';
-import {
-    ref,
-    uploadBytes,
-    getDownloadURL,
-    listAll,
-    list,
-} from "firebase/storage";
-import { v4 as uuidv4, v4 } from "uuid";
-import { storage } from "../../firebase/config";
+import { ref, uploadBytes, getDownloadURL, listAll, list } from 'firebase/storage';
+import { v4 as uuidv4, v4 } from 'uuid';
+import { storage } from '../../firebase/config';
 import SeonService from 'services/SeonService';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -74,7 +69,7 @@ const SamplePage = () => {
         await SeonService.seonEmailData(json).then((res) => {
             console.log(res.data.data);
             setFinalData([res.data.data.account_details]);
-            setBreach([res.data.data.breach_details]);
+            setBreach(res.data.data.breach_details);
             setLinkedin(res.data.data.account_details.linkedin);
             // setLoad(false)
         });
@@ -95,7 +90,7 @@ const SamplePage = () => {
         setLoading(false);
     }, []);
 
-    console.log(finalData);
+    console.log(breach);
 
     // const getWhatsapp = async () => {
     //     let res = await fetch(
@@ -123,7 +118,67 @@ const SamplePage = () => {
                     president, sunk in culpa qui officiate descent molls anim id est labours.
                 </Typography>
             </MainCard>
-
+            <MainCard sx={{ marginTop: 2 }} title="Upload the user's email ID">
+                <Grid alignItems="center" container spacing={2}>
+                    <Grid item xs={11}>
+                        <FormControl
+                            fullWidth
+                            // error={Boolean(touched.email && error s.email)}
+                            // sx={{ ...theme.typography.customInput }}
+                        >
+                            <OutlinedInput
+                                id="outlined-adornment-email-login"
+                                type="text"
+                                // value={values.email}
+                                name="phone_no"
+                                // onBlur={handleBlur}
+                                onChange={(e) => setJson(e.target.value)}
+                                label="Number"
+                                inputProps={{}}
+                            />
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={1}>
+                        <Button variant="outlined" sx={{ paddingBottom: 1, paddingTop: 1 }} onClick={call}>
+                            Upload
+                        </Button>
+                    </Grid>
+                </Grid>
+            </MainCard>
+            {breach ? (
+                <div>
+                    <MainCard title="Security Breaches">
+                        <Typography variant="h3">Number of breaches: {breach.number_of_breaches}</Typography>
+                        <Typography variant="body2">
+                            These security breaches can prove to be crucial to gaining more information about an individual, as the
+                            purported breach usually indicates that some private or sensitive data of the person of interest has been made
+                            public.This can help widen the scenarios surrounding the said individual.
+                        </Typography>
+                    </MainCard>
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            height: '20vh',
+                            background: 'linear-gradient(to bottom right, #f2f2f2, #d9d9d9)'
+                        }}
+                    >
+                        {breach.breaches.map((item) => (
+                            <Card sx={{ minWidth: 275, margin: '0.5rem', background: 'linear-gradient(45deg, #e7f0fd, #c6d9f1)' }}>
+                                <CardContent>
+                                    <Typography variant="h4" gutterBottom>
+                                        {item.name}
+                                    </Typography>
+                                    <Divider />
+                                    <Typography color="textSecondary">{item.domain}</Typography>
+                                    <Typography variant="body2">{item.date}</Typography>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
+                </div>
+            ) : null}
             <Grid container spacing={gridSpacing}>
                 <Grid item xs={12}>
                     <Grid container spacing={gridSpacing}>
