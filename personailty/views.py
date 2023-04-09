@@ -10,7 +10,6 @@ from rest_framework.views import APIView
 class personality(APIView):
     def post(self, request):
 
-        # cat = ["emailTech", "emailEcomm", "emailSocial", "emailSearch", "emailNews", "emailMusic", "emailTravel", "emailOTT", "emailEducation"]
         fin = {"emailTech": 0, "emailEcomm": 0, "emailSocial": 0, "emailSearch": 0, "emailNews": 0, "emailMusic": 0, "emailTravel": 0, "emailOTT": 0, "emailEducation": 0}
         temp = json.load(request)
         data = temp['data']
@@ -43,12 +42,8 @@ class personality(APIView):
                 j = data[i]
                 fin["emailEducation"] = len(j)
         print(fin)
-
-        
-        # max_feat = max(zip(fin.values(), fin.keys()))[1]
         max_cate = max(zip(fin.values(), fin.keys()))[1]
 
-        # print(max_feat)
         feat_list = []
         act_feat = []
         if max_cate == "emailTech":
@@ -120,10 +115,7 @@ class personality(APIView):
 
         print(feat_list)
         num = random.randint(1, int(len(feat_list)/2))
-        print(num)
         return Response({
             "status" : 200,
             "data" : f"The user seems to be more active on {act_feat}. The next possible websites where user can create account on: {feat_list[-num]} or {feat_list[-(num-1)]}",
         })
-
-        # print(totalSocial)
