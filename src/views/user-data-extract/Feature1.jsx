@@ -422,8 +422,9 @@ export default function Feature1() {
                                                                     Analysis of user activity
                                                                 </Typography>
                                                                 <Typography variant="body1" color="initial">
-                                                                    The user seems to be more active on {personality}. The next possible
-                                                                    website the user can create an account on is {mostProbSite}.
+                                                                    The user seems to be more active on <b>{personality}</b>. The next
+                                                                    possible website the user can create an account on is{' '}
+                                                                    <b>{mostProbSite}</b>.
                                                                 </Typography>
                                                             </div>
                                                         </div>
@@ -619,6 +620,7 @@ export default function Feature1() {
                                 </Grid>
                             </>
                         )}
+                        {/* <Grid xs={12}><Card> </Card></Grid> */}
                     </>
                 )}
             </TabPanel>
@@ -666,28 +668,38 @@ export default function Feature1() {
                     <>
                         {ipdata ? (
                             <div>
-                                <Card sx={{ display: 'flex' }}>
-                                    <div id="map" style={{ height: '400px', width: '900px' }}>
+                                <Card sx={{ display: 'flex', marginTop: 4 }}>
+                                    <div id="map" style={{ height: '400px', width: '900px', margin: '30px' }}>
                                         <MapContainer center={position} scrollWheelZoom={false} zoom={13} style={{ height: '100%' }}>
                                             <TileLayer
                                                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                             />
                                             <Marker position={position}>
-                                                <Popup>
-                                                    A pretty CSS3 popup. <br /> Easily customizable.
-                                                </Popup>
+                                                <Popup>Approx location of the malicious API.</Popup>
                                             </Marker>
                                         </MapContainer>
                                     </div>
-                                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '30px' }}>
                                         <CardContent
-                                            sx={{ flex: '1 0 auto', backgroundColor: '#f5f5f5', borderRadius: '10px', padding: '2rem' }}
+                                            sx={{
+                                                flex: '1 0 auto',
+                                                backgroundColor: '#fafafa',
+                                                borderRadius: '10px',
+                                                padding: '2rem'
+                                                // opacity: '0.5'
+                                            }}
                                         >
                                             <Typography
                                                 component="div"
                                                 variant="h5"
-                                                sx={{ textAlign: 'center', fontSize: '2rem', marginBottom: '1rem', color: '#333333' }}
+                                                sx={{
+                                                    textAlign: 'center',
+                                                    fontSize: '2rem',
+                                                    marginBottom: '1rem',
+                                                    color: '#333333',
+                                                    fontWeight: 'bold'
+                                                }}
                                             >
                                                 ISP Name - {ipdata.isp_name}
                                             </Typography>
@@ -697,7 +709,7 @@ export default function Feature1() {
                                                 variant="subtitle1"
                                                 color="text.secondary"
                                                 component="div"
-                                                sx={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: '#666666' }}
+                                                sx={{ fontSize: '1.2rem', marginBottom: '0.5rem', color: '#212121' }}
                                             >
                                                 <Chip label="State" /> - {ipdata.state_prov}
                                             </Typography>
@@ -705,7 +717,7 @@ export default function Feature1() {
                                                 variant="subtitle1"
                                                 color="text.secondary"
                                                 component="div"
-                                                sx={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: '#666666' }}
+                                                sx={{ fontSize: '1.2rem', marginBottom: '0.5rem', color: '#212121' }}
                                             >
                                                 <Chip label="City" /> - {ipdata.city}
                                             </Typography>
@@ -713,7 +725,7 @@ export default function Feature1() {
                                                 variant="subtitle1"
                                                 color="text.secondary"
                                                 component="div"
-                                                sx={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: '#666666' }}
+                                                sx={{ fontSize: '1.2rem', marginBottom: '0.5rem', color: '#212121' }}
                                             >
                                                 <Chip label="Timezone" /> - {ipdata.timezone_offset}
                                             </Typography>

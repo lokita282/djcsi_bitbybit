@@ -17,7 +17,7 @@ import ChartDataYear from './chart-data/total-order-year-line-chart';
 
 // assets
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
     backgroundColor: theme.palette.primary.dark,
@@ -82,39 +82,27 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                             <Grid item>
                                 <Grid container justifyContent="space-between">
                                     <Grid item>
-                                        <Avatar
-                                            variant="rounded"
-                                            sx={{
-                                                ...theme.typography.commonAvatar,
-                                                ...theme.typography.largeAvatar,
-                                                backgroundColor: theme.palette.primary[800],
-                                                color: '#fff',
-                                                mt: 1
-                                            }}
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-apps"
+                                            width="44"
+                                            height="44"
+                                            viewBox="0 0 24 24"
+                                            stroke-width="1.5"
+                                            stroke="#2c3e50"
+                                            fill="none"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
                                         >
-                                            <LocalMallOutlinedIcon fontSize="inherit" />
-                                        </Avatar>
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <rect x="4" y="4" width="6" height="6" rx="1" />
+                                            <rect x="4" y="14" width="6" height="6" rx="1" />
+                                            <rect x="14" y="14" width="6" height="6" rx="1" />
+                                            <line x1="14" y1="7" x2="20" y2="7" />
+                                            <line x1="17" y1="4" x2="17" y2="10" />
+                                        </svg>
                                     </Grid>
-                                    <Grid item>
-                                        <Button
-                                            disableElevation
-                                            variant={timeValue ? 'contained' : 'text'}
-                                            size="small"
-                                            sx={{ color: 'inherit' }}
-                                            onClick={(e) => handleChangeTime(e, true)}
-                                        >
-                                            Month
-                                        </Button>
-                                        <Button
-                                            disableElevation
-                                            variant={!timeValue ? 'contained' : 'text'}
-                                            size="small"
-                                            sx={{ color: 'inherit' }}
-                                            onClick={(e) => handleChangeTime(e, false)}
-                                        >
-                                            Year
-                                        </Button>
-                                    </Grid>
+                                    <Grid item></Grid>
                                 </Grid>
                             </Grid>
                             <Grid item sx={{ mb: 0.75 }}>
@@ -128,7 +116,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                                                     </Typography>
                                                 ) : (
                                                     <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                                        $961
+                                                        50+
                                                     </Typography>
                                                 )}
                                             </Grid>
@@ -141,7 +129,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                                                         color: theme.palette.primary.dark
                                                     }}
                                                 >
-                                                    <ArrowDownwardIcon fontSize="inherit" sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }} />
+                                                    <ArrowUpwardIcon fontSize="inherit" sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }} />
                                                 </Avatar>
                                             </Grid>
                                             <Grid item xs={12}>
@@ -152,7 +140,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                                                         color: theme.palette.primary[200]
                                                     }}
                                                 >
-                                                    Total Order
+                                                    Total Apps Scanned
                                                 </Typography>
                                             </Grid>
                                         </Grid>

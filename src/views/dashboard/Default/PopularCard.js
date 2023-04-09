@@ -43,7 +43,7 @@ const PopularCard = ({ isLoading }) => {
                             <Grid item xs={12}>
                                 <Grid container alignContent="center" justifyContent="space-between">
                                     <Grid item>
-                                        <Typography variant="h4">Popular Stocks</Typography>
+                                        <Typography variant="h4">Honey Pots</Typography>
                                     </Grid>
                                     <Grid item>
                                         <MoreHorizOutlinedIcon
@@ -88,15 +88,13 @@ const PopularCard = ({ isLoading }) => {
                                         <Grid container alignItems="center" justifyContent="space-between">
                                             <Grid item>
                                                 <Typography variant="subtitle1" color="inherit">
-                                                    Bajaj Finery
+                                                    Honey pot 1
                                                 </Typography>
                                             </Grid>
                                             <Grid item>
                                                 <Grid container alignItems="center" justifyContent="space-between">
                                                     <Grid item>
-                                                        <Typography variant="subtitle1" color="inherit">
-                                                            $1839.00
-                                                        </Typography>
+                                                        <Typography variant="subtitle1" color="inherit"></Typography>
                                                     </Grid>
                                                     <Grid item>
                                                         <Avatar
@@ -119,7 +117,7 @@ const PopularCard = ({ isLoading }) => {
                                     </Grid>
                                     <Grid item>
                                         <Typography variant="subtitle2" sx={{ color: 'success.dark' }}>
-                                            10% Profit
+                                            10% Increase
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -129,15 +127,13 @@ const PopularCard = ({ isLoading }) => {
                                         <Grid container alignItems="center" justifyContent="space-between">
                                             <Grid item>
                                                 <Typography variant="subtitle1" color="inherit">
-                                                    TTML
+                                                    Honey pot 2
                                                 </Typography>
                                             </Grid>
                                             <Grid item>
                                                 <Grid container alignItems="center" justifyContent="space-between">
                                                     <Grid item>
-                                                        <Typography variant="subtitle1" color="inherit">
-                                                            $100.00
-                                                        </Typography>
+                                                        <Typography variant="subtitle1" color="inherit"></Typography>
                                                     </Grid>
                                                     <Grid item>
                                                         <Avatar
@@ -160,7 +156,7 @@ const PopularCard = ({ isLoading }) => {
                                     </Grid>
                                     <Grid item>
                                         <Typography variant="subtitle2" sx={{ color: theme.palette.orange.dark }}>
-                                            10% loss
+                                            10% Decrease
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -170,15 +166,13 @@ const PopularCard = ({ isLoading }) => {
                                         <Grid container alignItems="center" justifyContent="space-between">
                                             <Grid item>
                                                 <Typography variant="subtitle1" color="inherit">
-                                                    Reliance
+                                                    Honey Pot 3
                                                 </Typography>
                                             </Grid>
                                             <Grid item>
                                                 <Grid container alignItems="center" justifyContent="space-between">
                                                     <Grid item>
-                                                        <Typography variant="subtitle1" color="inherit">
-                                                            $200.00
-                                                        </Typography>
+                                                        <Typography variant="subtitle1" color="inherit"></Typography>
                                                     </Grid>
                                                     <Grid item>
                                                         <Avatar
@@ -201,7 +195,7 @@ const PopularCard = ({ isLoading }) => {
                                     </Grid>
                                     <Grid item>
                                         <Typography variant="subtitle2" sx={{ color: theme.palette.success.dark }}>
-                                            10% Profit
+                                            10% Increase
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -211,15 +205,13 @@ const PopularCard = ({ isLoading }) => {
                                         <Grid container alignItems="center" justifyContent="space-between">
                                             <Grid item>
                                                 <Typography variant="subtitle1" color="inherit">
-                                                    TTML
+                                                    Honey pot 4
                                                 </Typography>
                                             </Grid>
                                             <Grid item>
                                                 <Grid container alignItems="center" justifyContent="space-between">
                                                     <Grid item>
-                                                        <Typography variant="subtitle1" color="inherit">
-                                                            $189.00
-                                                        </Typography>
+                                                        <Typography variant="subtitle1" color="inherit"></Typography>
                                                     </Grid>
                                                     <Grid item>
                                                         <Avatar
@@ -242,7 +234,7 @@ const PopularCard = ({ isLoading }) => {
                                     </Grid>
                                     <Grid item>
                                         <Typography variant="subtitle2" sx={{ color: theme.palette.orange.dark }}>
-                                            10% loss
+                                            10% Decrease
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -258,9 +250,7 @@ const PopularCard = ({ isLoading }) => {
                                             <Grid item>
                                                 <Grid container alignItems="center" justifyContent="space-between">
                                                     <Grid item>
-                                                        <Typography variant="subtitle1" color="inherit">
-                                                            $189.00
-                                                        </Typography>
+                                                        <Typography variant="subtitle1" color="inherit"></Typography>
                                                     </Grid>
                                                     <Grid item>
                                                         <Avatar
@@ -283,7 +273,7 @@ const PopularCard = ({ isLoading }) => {
                                     </Grid>
                                     <Grid item>
                                         <Typography variant="subtitle2" sx={{ color: theme.palette.orange.dark }}>
-                                            10% loss
+                                            10% Decrease
                                         </Typography>
                                     </Grid>
                                 </Grid>
