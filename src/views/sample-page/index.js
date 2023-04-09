@@ -1,6 +1,11 @@
 /* eslint-disable prettier/prettier */
 // material-ui
 import { useState, useEffect } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/bundle';
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper';
+
 import {
     Typography,
     TextField,
@@ -34,6 +39,14 @@ import { ref, uploadBytes, getDownloadURL, listAll, list } from 'firebase/storag
 import { v4 as uuidv4, v4 } from 'uuid';
 import { storage } from '../../firebase/config';
 import SeonService from 'services/SeonService';
+import LinkedinCard from '../../ui-component/emailSwiper/LinkedinCard';
+import GoogleCard from '../../ui-component/emailSwiper/GoogleCard';
+import GravatarCard from '../../ui-component/emailSwiper/GravatarCard';
+import SkypeCard from '../../ui-component/emailSwiper/SkypeCard';
+import OkCard from '../../ui-component/emailSwiper/OkCard';
+import AirbnbCard from '../../ui-component/emailSwiper/SkypeCard';
+import SwipingCards from '../../ui-component/emailSwiper/SwipingCards';
+
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 
@@ -46,6 +59,11 @@ const SamplePage = () => {
     const [imageUpload, setImageUpload] = useState();
     const [finalData, setFinalData] = useState([]);
     const [linkedin, setLinkedin] = useState();
+    const [google, setGoogle] = useState();
+    const [gravatar, setGravatar] = useState();
+    const [skype, setSkype] = useState();
+    const [ok, setOk] = useState();
+    const [airbnb, setAirbnb] = useState();
     const [whatsapp, setWhatsapp] = useState();
     const [breach, setBreach] = useState();
 
@@ -71,6 +89,11 @@ const SamplePage = () => {
             setFinalData([res.data.data.account_details]);
             setBreach(res.data.data.breach_details);
             setLinkedin(res.data.data.account_details.linkedin);
+            setGoogle(res.data.data.account_details.google);
+            setGravatar(res.data.data.account_details.gravatar);
+            setSkype(res.data.data.account_details.skype);
+            setOk(res.data.data.account_details.ok);
+            setAirbnb(res.data.data.account_details.airbnb);
             // setLoad(false)
         });
     };
@@ -211,7 +234,7 @@ const SamplePage = () => {
                     </Grid>
                 </Grid>
             </Grid>
-            {linkedin ? (
+            {/* {linkedin ? (
                 <Card style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1rem', maxWidth: 345 }}>
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '1rem' }}>
                         <img
@@ -244,7 +267,7 @@ const SamplePage = () => {
                         </Typography>
                     </CardContent>
                 </Card>
-            ) : null}
+            ) : null} */}
             {whatsapp ? (
                 <Card sx={{ maxWidth: 345 }}>
                     <CardActionArea>
@@ -257,6 +280,48 @@ const SamplePage = () => {
                     </CardActionArea>
                 </Card>
             ) : null}
+            {/* <LinkedinCard linkedin={linkedin}/>
+            <GoogleCard google={google}/>
+            <GravatarCard gravatar={gravatar}/>
+            <SkypeCard skype={skype}/>
+            <OkCard ok={ok}/>
+            <AirbnbCard airbnb={airbnb}/> */}
+            {console.log('hiiiiiiiiiiiiiiiiiii')}
+            {/* <SwipingCards /> */}
+            <Swiper
+                slidesPerView={1}
+                breakpoints={{
+                    650: {
+                        slidesPerView: 1
+                    },
+                    850: {
+                        slidesPerView: 2
+                    },
+                    950: {
+                        slidesPerView: 3
+                    }
+                }}
+                modules={[Autoplay]}
+                autoplay={{ delay: 2000 }}
+                loop={true}
+                spaceBetween={10}
+            >
+                <SwiperSlide>
+                    <LinkedinCard linkedin={linkedin} />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <GoogleCard google={google} />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <GravatarCard gravatar={gravatar} />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <SkypeCard skype={skype} />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <OkCard ok={ok}/>
+                </SwiperSlide>
+            </Swiper>
         </>
     );
 };

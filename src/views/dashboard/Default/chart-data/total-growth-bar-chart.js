@@ -1,5 +1,7 @@
 // ===========================|| DASHBOARD - TOTAL GROWTH BAR CHART ||=========================== //
 
+const array = JSON.parse(localStorage.getItem('emailCount'));
+
 const chartData = {
     height: 450,
     type: 'bar',
@@ -71,8 +73,8 @@ const chartData = {
             data: [10, 6, 20, 2, 1, 2, 2, 2, 3]
         },
         {
-            name: 'Accounts Founds',
-            data: [6, 3, 9, 1, 0, 1, 1, 2, 1]
+            name: 'Accounts Found',
+            data: array
         }
     ]
 };
