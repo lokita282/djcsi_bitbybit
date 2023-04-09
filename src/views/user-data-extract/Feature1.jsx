@@ -10,7 +10,6 @@ import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import LanIcon from '@mui/icons-material/Lan';
 import { TextField, OutlinedInput, InputLabel, FormControl, FormHelperText, Grid, Button, MenuItem, Divider, Chip } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import TotalIncomeDarkCard from 'views/dashboard/Default/TotalIncomeDarkCard';
 import SeonService from 'services/SeonService';
 import MainCard from 'ui-component/cards/MainCard';
 import { Card, CardContent } from '@mui/material';
@@ -22,6 +21,14 @@ import { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import PersonalityService from 'services/PersonalityService';
+
+import EarningCard from 'ui-component/cards/Skeleton/EarningCard';
+import PopularCard from 'ui-component/cards/Skeleton/PopularCard';
+import TotalOrderLineChartCard from 'views/dashboard/Default/TotalOrderLineChartCard';
+import TotalIncomeDarkCard from 'views/dashboard/Default/TotalIncomeDarkCard';
+import TotalIncomeLightCard from 'views/dashboard/Default/TotalIncomeLightCard';
+import TotalGrowthBarChart from 'views/dashboard/Default/TotalGrowthBarChart';
+import { gridSpacing } from 'store/constant';
 
 const CompanyCard = ({ company, isRegistered }) => {
     return (
@@ -96,9 +103,7 @@ export default function Feature1() {
                 });
             })
             .then(async () => {
-                await PersonalityService.personality(emailCategoryData).then((res) => {
-                    console.log('personality', res);
-                });
+                await personalityCall();
             });
     };
 
@@ -111,6 +116,126 @@ export default function Feature1() {
             // setLoad(false)
         });
     };
+
+    const [personality, setPersonality] = useState();
+
+    const personalityCall = async () => {
+        var myHeaders = new Headers();
+        myHeaders.append('Content-Type', 'application/json');
+
+        var raw = JSON.stringify({
+            data: {
+                registeredEmailTech: [
+                    {
+                        name: 'apple',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'github',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'adobe',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'wordpress',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'atlassian',
+                        isRegistered: true
+                    }
+                ],
+                registeredEmailEcomm: [
+                    {
+                        name: 'amazon',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'flipkart',
+                        isRegistered: true
+                    }
+                ],
+                registeredEmailSocial: [
+                    {
+                        name: 'google',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'gravatar',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'instagram',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'linkedin',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'microsoft',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'pinterest',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'tumblr',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'twitter',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'yahoo',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'discord',
+                        isRegistered: true
+                    }
+                ],
+                registeredEmailSearch: [],
+                registeredEmailNews: [],
+                registeredEmailMusic: [
+                    {
+                        name: 'spotify',
+                        isRegistered: true
+                    }
+                ],
+                registeredEmailTravel: [],
+                registeredEmailOTT: [],
+                registeredEmailEducation: [
+                    {
+                        name: 'archiveorg',
+                        isRegistered: true
+                    },
+                    {
+                        name: 'quora',
+                        isRegistered: true
+                    }
+                ]
+            }
+        });
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch('https://41c3-136-232-1-174.ngrok-free.app/personality/', requestOptions)
+            .then((response) => console.log(response.json()))
+            .then((result) => console.log(result))
+            .catch((error) => console.log('error', error));
+    };
+
+    console.log(personality);
 
     const callMobile = async () => {
         await SeonService.seonPhoneData(json)
@@ -159,7 +284,34 @@ export default function Feature1() {
         console.log(event.target.value);
     };
 
+    const [isLoading, setIsLoading] = useState(true);
+
     const companies = [{ adobe: { registered: true }, airbnb: { registered: false }, amazon: { registered: true } }];
+
+    let emailCount = [
+        emailCategoryData?.registeredEmailTech?.length,
+        emailCategoryData?.registeredEmailEcomm?.length,
+        emailCategoryData?.registeredEmailSocial?.length,
+        emailCategoryData?.registeredEmailSearch?.length,
+        emailCategoryData?.registeredEmailNews?.length,
+        emailCategoryData?.registeredEmailMusic?.length,
+        emailCategoryData?.registeredEmailTravel?.length,
+        emailCategoryData?.registeredEmailOTT?.length,
+        emailCategoryData?.registeredEmailEducation?.length
+    ];
+
+    var sum = 0;
+
+    // Calculation the sum using forEach
+    emailCount?.forEach((x) => {
+        sum += x;
+    });
+    localStorage.setItem('emailTotal', JSON.stringify(sum));
+    localStorage.setItem('emailCount', JSON.stringify(emailCount));
+
+    useEffect(() => {
+        setIsLoading(false);
+    }, []);
 
     return (
         <Box sx={{ width: '100%' }}>
@@ -238,14 +390,51 @@ export default function Feature1() {
                     </>
                 ) : (
                     <>
+                        {finalData ? (
+                            <>
+                                <Grid container spacing={gridSpacing}>
+                                    <Grid item xs={12}>
+                                        <Grid container spacing={gridSpacing}>
+                                            <Grid item lg={4} md={6} sm={6} xs={12}>
+                                                {/* <EarningCard isLoading={isLoading} /> */}
+                                            </Grid>
+                                            <Grid item lg={4} md={6} sm={6} xs={12}>
+                                                {/* <TotalOrderLineChartCard isLoading={isLoading} /> */}
+                                            </Grid>
+                                            <Grid item lg={4} md={12} sm={12} xs={12}>
+                                                <Grid container spacing={gridSpacing}>
+                                                    <Grid item sm={6} xs={12} md={6} lg={12}>
+                                                        {/* <TotalIncomeDarkCard isLoading={isLoading} /> */}
+                                                    </Grid>
+                                                    <Grid item sm={6} xs={12} md={6} lg={12}>
+                                                        {/* <TotalIncomeLightCard isLoading={isLoading} /> */}
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Grid container spacing={gridSpacing}>
+                                            <Grid item xs={12} md={8}>
+                                                <TotalGrowthBarChart isLoading={isLoading} />
+                                            </Grid>
+                                            <Grid item xs={12} md={4}>
+                                                {/* <PopularCard isLoading={isLoading} /> */}
+                                                {personality?.data}
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </>
+                        ) : null}
                         {emailCategories === 'All' ? (
                             <>
                                 <div>
-                                    <Grid container spacing={2}>
+                                    <Grid container sx={{ marginTop: 1 }} spacing={2}>
                                         {finalData?.map((companyObj) =>
                                             Object.entries(companyObj).map(([companyName, companyData]) => (
                                                 // <CompanyCard key={companyName} company={companyName} isRegistered={companyData.registered} />
-                                                <Grid item xs={4}>
+                                                <Grid item md={4} xs={12}>
                                                     <UserDataCard
                                                         key={companyName}
                                                         company={companyName}

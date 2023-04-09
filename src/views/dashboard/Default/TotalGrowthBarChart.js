@@ -50,7 +50,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
     const primaryDark = theme.palette.primary.dark;
     const secondaryMain = theme.palette.secondary.main;
     const secondaryLight = theme.palette.secondary[200];
-
+    const total = JSON.parse(localStorage.getItem('emailTotal'));
     useEffect(() => {
         const newChartData = {
             ...chartData.options,
@@ -103,7 +103,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                                             <Typography variant="body1">Total Accounts Found</Typography>
                                         </Grid>
                                         <Grid item>
-                                            <Typography variant="h2">845</Typography>
+                                            <Typography variant="h2">{total}</Typography>
                                         </Grid>
                                     </Grid>
                                 </Grid>
