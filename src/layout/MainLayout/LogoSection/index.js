@@ -8,7 +8,7 @@ import { ButtonBase } from '@mui/material';
 import config from 'config';
 import Logo from 'ui-component/Logo';
 import { MENU_OPEN } from 'store/actions';
-
+// import { logo } from '../../../assets/images/securify-logo.png';
 // ==============================|| MAIN LOGO ||============================== //
 
 const LogoSection = () => {
@@ -17,6 +17,7 @@ const LogoSection = () => {
     return (
         <ButtonBase disableRipple onClick={() => dispatch({ type: MENU_OPEN, id: defaultId })} component={Link} to={config.defaultPath}>
             <Logo />
+            {/* <image src={'../../../assets/images/securify-logo.png'} height={20} width={30} /> */}
         </ButtonBase>
     );
 };
