@@ -40,7 +40,7 @@ import OkCard from '../../ui-component/emailSwiper/OkCard';
 import AirbnbCard from '../../ui-component/emailSwiper/SkypeCard';
 import { gridSpacing } from 'store/constant';
 import axios from 'axios';
-
+import { Player } from '@lottiefiles/react-lottie-player';
 const CompanyCard = ({ company, isRegistered }) => {
     return (
         <Card>
@@ -92,6 +92,7 @@ export default function Feature1() {
     const [phoneCategoryData, setPhoneCategoryData] = React.useState();
     const handleChange = (event, newValue) => {
         setValue(newValue);
+        // setFinalData({});
     };
     const [json, setJson] = useState('');
     const [finalData, setFinalData] = useState([]);
@@ -254,7 +255,13 @@ export default function Feature1() {
     return (
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                <Tabs
+                    value={value}
+                    onChange={handleChange}
+                    textColor="secondary"
+                    indicatorColor="secondary"
+                    aria-label="basic tabs example"
+                >
                     <Tab icon={<EmailIcon />} iconPosition="start" label="Email ID" {...a11yProps(0)} />
                     <Tab icon={<LocalPhoneIcon />} iconPosition="start" label="Mobile Number" {...a11yProps(1)} />
                     <Tab icon={<LanIcon />} iconPosition="start" label="IP Address" {...a11yProps(2)} />
@@ -282,7 +289,7 @@ export default function Feature1() {
                             </FormControl>
                         </Grid>
                         <Grid item xs={1}>
-                            <Button variant="outlined" sx={{ paddingBottom: 1, paddingTop: 1 }} onClick={callEmail}>
+                            <Button color="secondary" variant="outlined" sx={{ paddingBottom: 1, paddingTop: 1 }} onClick={callEmail}>
                                 Upload
                             </Button>
                         </Grid>
@@ -322,9 +329,14 @@ export default function Feature1() {
                 </MainCard>
                 {loading ? (
                     <>
-                        <Box sx={{ display: 'flex' }}>
-                            <CircularProgress color="secondary" />
-                            <Typography variant="h3"> Analyzing accounts based on email id...</Typography>
+                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                            <Player
+                                autoplay
+                                loop
+                                src="https://assets8.lottiefiles.com/packages/lf20_96cnyxkh.json"
+                                style={{ height: '150px', width: '150px' }}
+                            ></Player>
+                            <Typography variant="h3"> Analyzing accounts based on email address...</Typography>
                         </Box>
                     </>
                 ) : (
@@ -490,7 +502,7 @@ export default function Feature1() {
                                     height: '20vh'
                                 }}
                             >
-                                {breach.breaches.map((item) => (
+                                {breach?.breaches?.map((item) => (
                                     <>
                                         <Card
                                             sx={{
@@ -542,7 +554,7 @@ export default function Feature1() {
                             </FormControl>
                         </Grid>
                         <Grid item xs={1}>
-                            <Button variant="outlined" sx={{ paddingBottom: 1, paddingTop: 1 }} onClick={callMobile}>
+                            <Button color="secondary" variant="outlined" sx={{ paddingBottom: 1, paddingTop: 1 }} onClick={callMobile}>
                                 Upload
                             </Button>
                         </Grid>
@@ -579,8 +591,13 @@ export default function Feature1() {
                 </MainCard>
                 {loading ? (
                     <>
-                        <Box sx={{ display: 'flex' }}>
-                            <CircularProgress color="secondary" />
+                        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                            <Player
+                                autoplay
+                                loop
+                                src="https://assets8.lottiefiles.com/packages/lf20_96cnyxkh.json"
+                                style={{ height: '150px', width: '150px' }}
+                            ></Player>
                             <Typography variant="h3"> Analyzing accounts based on mobile number...</Typography>
                         </Box>
                     </>
@@ -651,7 +668,7 @@ export default function Feature1() {
                             </FormControl>
                         </Grid>
                         <Grid item xs={1}>
-                            <Button variant="outlined" sx={{ paddingBottom: 1, paddingTop: 1 }} onClick={callIP}>
+                            <Button color="secondary" variant="outlined" sx={{ paddingBottom: 1, paddingTop: 1 }} onClick={callIP}>
                                 Upload
                             </Button>
                         </Grid>
@@ -659,8 +676,13 @@ export default function Feature1() {
                 </MainCard>
                 {loading ? (
                     <>
-                        <Box sx={{ display: 'flex' }}>
-                            <CircularProgress color="secondary" />
+                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                            <Player
+                                autoplay
+                                loop
+                                src="https://assets8.lottiefiles.com/packages/lf20_96cnyxkh.json"
+                                style={{ height: '150px', width: '150px' }}
+                            ></Player>
                             <Typography variant="h3"> Analyzing accounts based on IP Address...</Typography>
                         </Box>
                     </>
