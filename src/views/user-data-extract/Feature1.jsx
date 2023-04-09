@@ -88,6 +88,7 @@ export default function Feature1() {
     const [position, setPosition] = useState([]);
 
     const callEmail = async () => {
+        setLoading(true);
         await SeonService.seonEmailData(json)
             .then((res) => {
                 console.log(res.data.data.account_details);
@@ -98,7 +99,7 @@ export default function Feature1() {
                     // setLoading(true);
                     console.log(res.data.data);
                     setEmailCategoryData(res.data.data);
-                    // setLoading(false);
+                    setLoading(false);
                     // setLoad(false)
                 });
             })
@@ -238,6 +239,7 @@ export default function Feature1() {
     console.log(personality);
 
     const callMobile = async () => {
+        setLoading(true);
         await SeonService.seonPhoneData(json)
             .then((res) => {
                 // setLoading(true);
@@ -251,19 +253,20 @@ export default function Feature1() {
                     // setLoading(true);
                     console.log(res.data.data);
                     setPhoneCategoryData(res.data.data);
-                    // setLoading(false);
+                    setLoading(false);
                     // setLoad(false)
                 });
             });
     };
 
     const callIP = async () => {
+        setLoading(true);
         await SeonService.seonIPData(json).then((res) => {
             // setLoading(true);
             console.log(res.data.data);
             setIPdata(res.data.data);
             setPosition([res.data.data.latitude, res.data.data.longitude]);
-            // setLoading(false);
+            setLoading(false);
             //setFinalData([res.data.data]);
             // setLoad(false)
         });
@@ -386,6 +389,7 @@ export default function Feature1() {
                     <>
                         <Box sx={{ display: 'flex' }}>
                             <CircularProgress color="secondary" />
+                            <Typography variant="h3"> Analyzing accounts based on email id...</Typography>
                         </Box>
                     </>
                 ) : (
@@ -530,6 +534,7 @@ export default function Feature1() {
                     <>
                         <Box sx={{ display: 'flex' }}>
                             <CircularProgress color="secondary" />
+                            <Typography variant="h3"> Analyzing accounts based on mobile number...</Typography>
                         </Box>
                     </>
                 ) : (
@@ -604,62 +609,75 @@ export default function Feature1() {
                         </Grid>
                     </Grid>
                 </MainCard>
-                {ipdata ? (
-                    <div>
-                        <Card sx={{ display: 'flex' }}>
-                            <div id="map" style={{ height: '400px', width: '900px' }}>
-                                <MapContainer center={position} scrollWheelZoom={false} zoom={13} style={{ height: '100%' }}>
-                                    <TileLayer
-                                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                    />
-                                    <Marker position={position}>
-                                        <Popup>
-                                            A pretty CSS3 popup. <br /> Easily customizable.
-                                        </Popup>
-                                    </Marker>
-                                </MapContainer>
+                {loading ? (
+                    <>
+                        <Box sx={{ display: 'flex' }}>
+                            <CircularProgress color="secondary" />
+                            <Typography variant="h3"> Analyzing accounts based on IP Address...</Typography>
+                        </Box>
+                    </>
+                ) : (
+                    <>
+                        {ipdata ? (
+                            <div>
+                                <Card sx={{ display: 'flex' }}>
+                                    <div id="map" style={{ height: '400px', width: '900px' }}>
+                                        <MapContainer center={position} scrollWheelZoom={false} zoom={13} style={{ height: '100%' }}>
+                                            <TileLayer
+                                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                            />
+                                            <Marker position={position}>
+                                                <Popup>
+                                                    A pretty CSS3 popup. <br /> Easily customizable.
+                                                </Popup>
+                                            </Marker>
+                                        </MapContainer>
+                                    </div>
+                                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                        <CardContent
+                                            sx={{ flex: '1 0 auto', backgroundColor: '#f5f5f5', borderRadius: '10px', padding: '2rem' }}
+                                        >
+                                            <Typography
+                                                component="div"
+                                                variant="h5"
+                                                sx={{ textAlign: 'center', fontSize: '2rem', marginBottom: '1rem', color: '#333333' }}
+                                            >
+                                                ISP Name - {ipdata.isp_name}
+                                            </Typography>
+                                            <Divider />
+                                            <div style={{ height: '20px' }}></div>
+                                            <Typography
+                                                variant="subtitle1"
+                                                color="text.secondary"
+                                                component="div"
+                                                sx={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: '#666666' }}
+                                            >
+                                                <Chip label="State" /> - {ipdata.state_prov}
+                                            </Typography>
+                                            <Typography
+                                                variant="subtitle1"
+                                                color="text.secondary"
+                                                component="div"
+                                                sx={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: '#666666' }}
+                                            >
+                                                <Chip label="City" /> - {ipdata.city}
+                                            </Typography>
+                                            <Typography
+                                                variant="subtitle1"
+                                                color="text.secondary"
+                                                component="div"
+                                                sx={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: '#666666' }}
+                                            >
+                                                <Chip label="Timezone" /> - {ipdata.timezone_offset}
+                                            </Typography>
+                                        </CardContent>
+                                    </Box>
+                                </Card>
                             </div>
-                            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                <CardContent sx={{ flex: '1 0 auto', backgroundColor: '#f5f5f5', borderRadius: '10px', padding: '2rem' }}>
-                                    <Typography
-                                        component="div"
-                                        variant="h5"
-                                        sx={{ textAlign: 'center', fontSize: '2rem', marginBottom: '1rem', color: '#333333' }}
-                                    >
-                                        ISP Name - {ipdata.isp_name}
-                                    </Typography>
-                                    <Divider />
-                                    <div style={{ height: '20px' }}></div>
-                                    <Typography
-                                        variant="subtitle1"
-                                        color="text.secondary"
-                                        component="div"
-                                        sx={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: '#666666' }}
-                                    >
-                                        <Chip label="State" /> - {ipdata.state_prov}
-                                    </Typography>
-                                    <Typography
-                                        variant="subtitle1"
-                                        color="text.secondary"
-                                        component="div"
-                                        sx={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: '#666666' }}
-                                    >
-                                        <Chip label="City" /> - {ipdata.city}
-                                    </Typography>
-                                    <Typography
-                                        variant="subtitle1"
-                                        color="text.secondary"
-                                        component="div"
-                                        sx={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: '#666666' }}
-                                    >
-                                        <Chip label="Timezone" /> - {ipdata.timezone_offset}
-                                    </Typography>
-                                </CardContent>
-                            </Box>
-                        </Card>
-                    </div>
-                ) : null}
+                        ) : null}
+                    </>
+                )}
             </TabPanel>
         </Box>
     );
