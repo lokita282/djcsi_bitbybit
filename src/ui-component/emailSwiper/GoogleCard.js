@@ -33,6 +33,7 @@ const GoogleCard = ({ google }) => {
                         height: 300,
                         alignItems: 'center',
                         alignContent: 'center'
+                        // marginTop: '2rem'
                     }}
                 >
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '1rem' }}>
@@ -41,7 +42,11 @@ const GoogleCard = ({ google }) => {
                             alt="LinkedIn"
                             style={{ width: '1rem', height: '1rem', marginRight: '0.5rem' }}
                         />
-                        <Typography variant="h5" component="h2" style={{ fontWeight: 'bold', fontSize: '1.5rem', letterSpacing: '0.1rem' }}>
+                        <Typography
+                            variant="h5"
+                            component="h2"
+                            style={{ fontWeight: 'bold', fontSize: '1.5rem', letterSpacing: '0.1rem', paddingTop: '1.5rem' }}
+                        >
                             Google Account
                         </Typography>
                     </div>
