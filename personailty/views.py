@@ -151,7 +151,6 @@ def personality(request):
     elif i == "registeredEmailEducation":
         j = data[i]
         fin["emailEducation"] = len(j)
-    print(fin)
     max_cate = max(zip(fin.values(), fin.keys()))[1]
 
     feat_list = []
@@ -223,7 +222,12 @@ def personality(request):
         feat_list = ['archiveorg', 'evernote', 'quora']
         act_feat = "Educational Websites"
 
-    print(feat_list)
     num = random.randint(1, int(len(feat_list)/2))
-    output = f"The user seems to be more active on {act_feat}. The next possible websites where user can create account on: {feat_list[-num]} or {feat_list[-(num-1)]}"
-    return HttpResponse(output)     
+    txt = f"The user seems to be more active on {act_feat}. The next possible websites where user can create account on: {feat_list[-num]} or {feat_list[-(num-1)]}"
+    output = {
+        "status" : 200,
+        "most_visited" : act_feat,
+        "next" : feat_list[-num]
+        # "data" : txt,
+    }
+    return JsonResponse(output)     
