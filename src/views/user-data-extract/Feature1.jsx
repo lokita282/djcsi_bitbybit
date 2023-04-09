@@ -9,6 +9,10 @@ import EmailIcon from '@mui/icons-material/Email';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import LanIcon from '@mui/icons-material/Lan';
 import { TextField, OutlinedInput, InputLabel, FormControl, FormHelperText, Grid, Button, MenuItem, Divider, Chip } from '@mui/material';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/bundle';
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import SeonService from 'services/SeonService';
 import MainCard from 'ui-component/cards/MainCard';
@@ -28,7 +32,14 @@ import TotalOrderLineChartCard from 'views/dashboard/Default/TotalOrderLineChart
 import TotalIncomeDarkCard from 'views/dashboard/Default/TotalIncomeDarkCard';
 import TotalIncomeLightCard from 'views/dashboard/Default/TotalIncomeLightCard';
 import TotalGrowthBarChart from 'views/dashboard/Default/TotalGrowthBarChart';
+import LinkedinCard from '../../ui-component/emailSwiper/LinkedinCard';
+import GoogleCard from '../../ui-component/emailSwiper/GoogleCard';
+import GravatarCard from '../../ui-component/emailSwiper/GravatarCard';
+import SkypeCard from '../../ui-component/emailSwiper/SkypeCard';
+import OkCard from '../../ui-component/emailSwiper/OkCard';
+import AirbnbCard from '../../ui-component/emailSwiper/SkypeCard';
 import { gridSpacing } from 'store/constant';
+import axios from 'axios';
 
 const CompanyCard = ({ company, isRegistered }) => {
     return (
@@ -86,12 +97,24 @@ export default function Feature1() {
     const [finalData, setFinalData] = useState([]);
     const [ipdata, setIPdata] = useState();
     const [position, setPosition] = useState([]);
+    const [linkedin, setLinkedin] = useState();
+    const [google, setGoogle] = useState();
+    const [gravatar, setGravatar] = useState();
+    const [skype, setSkype] = useState();
+    const [ok, setOk] = useState();
+    const [airbnb, setAirbnb] = useState();
 
     const callEmail = async () => {
         await SeonService.seonEmailData(json)
             .then((res) => {
                 console.log(res.data.data.account_details);
                 setFinalData([res.data.data.account_details]);
+                setLinkedin(res.data.data.account_details.linkedin);
+                setGoogle(res.data.data.account_details.google);
+                setGravatar(res.data.data.account_details.gravatar);
+                setSkype(res.data.data.account_details.skype);
+                setOk(res.data.data.account_details.ok);
+                setAirbnb(res.data.data.account_details.airbnb);
             })
             .then(async () => {
                 await SeonService.seonEmailCategoryData(json).then((res) => {
@@ -118,122 +141,32 @@ export default function Feature1() {
     };
 
     const [personality, setPersonality] = useState();
+    const [mostProbSite, setMostProbSite] = useState();
 
-    const personalityCall = async () => {
-        var myHeaders = new Headers();
-        myHeaders.append('Content-Type', 'application/json');
+    let data = JSON.stringify({
+        data: emailCategoryData
+    });
 
-        var raw = JSON.stringify({
-            data: {
-                registeredEmailTech: [
-                    {
-                        name: 'apple',
-                        isRegistered: true
-                    },
-                    {
-                        name: 'github',
-                        isRegistered: true
-                    },
-                    {
-                        name: 'adobe',
-                        isRegistered: true
-                    },
-                    {
-                        name: 'wordpress',
-                        isRegistered: true
-                    },
-                    {
-                        name: 'atlassian',
-                        isRegistered: true
-                    }
-                ],
-                registeredEmailEcomm: [
-                    {
-                        name: 'amazon',
-                        isRegistered: true
-                    },
-                    {
-                        name: 'flipkart',
-                        isRegistered: true
-                    }
-                ],
-                registeredEmailSocial: [
-                    {
-                        name: 'google',
-                        isRegistered: true
-                    },
-                    {
-                        name: 'gravatar',
-                        isRegistered: true
-                    },
-                    {
-                        name: 'instagram',
-                        isRegistered: true
-                    },
-                    {
-                        name: 'linkedin',
-                        isRegistered: true
-                    },
-                    {
-                        name: 'microsoft',
-                        isRegistered: true
-                    },
-                    {
-                        name: 'pinterest',
-                        isRegistered: true
-                    },
-                    {
-                        name: 'tumblr',
-                        isRegistered: true
-                    },
-                    {
-                        name: 'twitter',
-                        isRegistered: true
-                    },
-                    {
-                        name: 'yahoo',
-                        isRegistered: true
-                    },
-                    {
-                        name: 'discord',
-                        isRegistered: true
-                    }
-                ],
-                registeredEmailSearch: [],
-                registeredEmailNews: [],
-                registeredEmailMusic: [
-                    {
-                        name: 'spotify',
-                        isRegistered: true
-                    }
-                ],
-                registeredEmailTravel: [],
-                registeredEmailOTT: [],
-                registeredEmailEducation: [
-                    {
-                        name: 'archiveorg',
-                        isRegistered: true
-                    },
-                    {
-                        name: 'quora',
-                        isRegistered: true
-                    }
-                ]
-            }
-        });
-
-        var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
-
-        fetch('https://41c3-136-232-1-174.ngrok-free.app/personality/', requestOptions)
-            .then((response) => console.log(response.json()))
-            .then((result) => console.log(result))
-            .catch((error) => console.log('error', error));
+    let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: 'https://41c3-136-232-1-174.ngrok-free.app/personality/',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: data
     };
+
+    axios
+        .request(config)
+        .then((response) => {
+            console.log(response.data);
+            setPersonality(response.data.most_visited);
+            setMostProbSite(response.data.next);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 
     console.log(personality);
 
@@ -413,17 +346,87 @@ export default function Feature1() {
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                    <Grid item xs={12}>
-                                        <Grid container spacing={gridSpacing}>
-                                            <Grid item xs={12} md={8}>
-                                                <TotalGrowthBarChart isLoading={isLoading} />
+                                    {personality ? (
+                                        <Grid item xs={12}>
+                                            <Grid container spacing={gridSpacing}>
+                                                <Grid item xs={12} md={8}>
+                                                    <TotalGrowthBarChart isLoading={isLoading} />
+                                                </Grid>
+                                                {/* <div> */}
+                                                <Grid item xs={12} md={4}>
+                                                    {/* <PopularCard isLoading={isLoading} /> */}
+                                                    {personality?.data}
+                                                    <Swiper
+                                                        slidesPerView={1}
+                                                        modules={[Autoplay]}
+                                                        autoplay={{ delay: 3500 }}
+                                                        loop={true}
+                                                        spaceBetween={10}
+                                                    >
+                                                        <SwiperSlide>
+                                                            <LinkedinCard linkedin={linkedin} />
+                                                        </SwiperSlide>
+                                                        <SwiperSlide>
+                                                            <GoogleCard google={google} />
+                                                        </SwiperSlide>
+                                                        <SwiperSlide>
+                                                            <GravatarCard gravatar={gravatar} />
+                                                        </SwiperSlide>
+                                                        <SwiperSlide>
+                                                            <SkypeCard skype={skype} />
+                                                        </SwiperSlide>
+                                                        <SwiperSlide>
+                                                            <OkCard ok={ok} />
+                                                        </SwiperSlide>
+                                                    </Swiper>
+
+                                                    <Card
+                                                        style={{
+                                                            display: 'flex',
+                                                            flexDirection: 'column',
+                                                            alignItems: 'center',
+                                                            marginTop: '2rem',
+                                                            padding: '1rem',
+                                                            maxWidth: 375,
+                                                            minHeight: 180
+                                                        }}
+                                                    >
+                                                        {console.log('jfcvfkve', linkedin)}
+                                                        <div
+                                                            style={{
+                                                                display: 'flex',
+                                                                justifyContent: 'center',
+                                                                alignItems: 'center',
+                                                                marginBottom: '1rem'
+                                                            }}
+                                                        >
+                                                            <div>
+                                                                <Typography
+                                                                    variant="h6"
+                                                                    component="h2"
+                                                                    style={{
+                                                                        fontWeight: 'bold',
+                                                                        fontSize: '1.5rem',
+                                                                        letterSpacing: '0.1rem',
+                                                                        paddingBottom: '1rem',
+                                                                        paddingTop: '1rem',
+                                                                        paddingLeft: '5px'
+                                                                    }}
+                                                                >
+                                                                    Analysis of user activity
+                                                                </Typography>
+                                                                <Typography variant="body1" color="initial">
+                                                                    The user seems to be more active on {personality}. The next possible
+                                                                    website the user can create an account on is {mostProbSite}.
+                                                                </Typography>
+                                                            </div>
+                                                        </div>
+                                                    </Card>
+                                                </Grid>
                                             </Grid>
-                                            <Grid item xs={12} md={4}>
-                                                {/* <PopularCard isLoading={isLoading} /> */}
-                                                {personality?.data}
-                                            </Grid>
+                                            {/* </div> */}
                                         </Grid>
-                                    </Grid>
+                                    ) : null}
                                 </Grid>
                             </>
                         ) : null}

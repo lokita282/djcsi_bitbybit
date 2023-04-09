@@ -30,7 +30,7 @@ const GravatarCard = ({ gravatar }) => {
                         alignItems: 'center',
                         padding: '1rem',
                         maxWidth: 345,
-                        minHeight: 400
+                        height: 350
                     }}
                 >
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '1rem' }}>

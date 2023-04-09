@@ -30,7 +30,7 @@ const OkCard = ({ ok }) => {
                         alignItems: 'center',
                         padding: '1rem',
                         maxWidth: 345,
-                        minHeight: 400
+                        minHeight: 350
                     }}
                 >
                     {/* {console.log('jfcvfkve', linkedin)} */}
