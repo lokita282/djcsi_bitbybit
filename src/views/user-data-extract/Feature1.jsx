@@ -568,7 +568,6 @@ export default function Feature1() {
                                 </Grid>
                             </>
                         )}
-                        asdfgh
                     </>
                 )}
             </TabPanel>
