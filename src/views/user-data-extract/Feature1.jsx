@@ -501,26 +501,29 @@ export default function Feature1() {
                                     height: '20vh'
                                 }}
                             >
-                                {breach?.breaches?.map((item) => (
-                                    <>
-                                        <Card
-                                            sx={{
-                                                minWidth: 275,
-                                                margin: '0.5rem',
-                                                background: 'linear-gradient(to bottom right, #f2f2f2, #d9d9d9)'
-                                            }}
-                                        >
-                                            <CardContent>
-                                                <Typography variant="h4" gutterBottom>
-                                                    {item.name}
-                                                </Typography>
-                                                <Divider />
-                                                <Typography color="textSecondary">{item.domain}</Typography>
-                                                <Typography variant="body2">{item.date}</Typography>
-                                            </CardContent>
-                                        </Card>
-                                    </>
-                                ))}
+                                {' '}
+                                <Box sx={{ display: 'flex' }}>
+                                    {breach?.breaches.slice(0, 4)?.map((item) => (
+                                        <>
+                                            <Card
+                                                sx={{
+                                                    minWidth: 275,
+                                                    margin: '0.5rem',
+                                                    background: 'linear-gradient(to bottom right, #f2f2f2, #d9d9d9)'
+                                                }}
+                                            >
+                                                <CardContent>
+                                                    <Typography variant="h4" gutterBottom>
+                                                        {item.name}
+                                                    </Typography>
+                                                    <Divider />
+                                                    <Typography color="textSecondary">{item.domain}</Typography>
+                                                    <Typography variant="body2">{item.date}</Typography>
+                                                </CardContent>
+                                            </Card>
+                                        </>
+                                    ))}
+                                </Box>
                             </div>
                         </MainCard>
                     </div>
