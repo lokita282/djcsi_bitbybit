@@ -10,15 +10,23 @@ const icons = {
 
 const pages = {
     id: 'pages',
-    title: 'Feature Tabs',
-    caption: 'Features yaha jaayege',
+    title: 'Tracking',
+    // caption: 'Features yaha jaayege',
     type: 'group',
     children: [
         {
             id: 'feature1',
-            title: 'Feature 1',
+            title: 'Track User',
             type: 'item',
             url: '/features/feature1',
+            icon: icons.IconKey,
+            breadcrumbs: false
+        },
+        {
+            id: 'feature2',
+            title: 'IP Monitoring',
+            type: 'item',
+            url: '/features/feature2',
             icon: icons.IconKey,
             breadcrumbs: false
         }
