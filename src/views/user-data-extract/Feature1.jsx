@@ -92,6 +92,7 @@ export default function Feature1() {
     const [phoneCategoryData, setPhoneCategoryData] = React.useState();
     const handleChange = (event, newValue) => {
         setValue(newValue);
+        // setFinalData({});
     };
     const [json, setJson] = useState('');
     const [finalData, setFinalData] = useState([]);
@@ -254,7 +255,13 @@ export default function Feature1() {
     return (
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                <Tabs
+                    value={value}
+                    onChange={handleChange}
+                    textColor="secondary"
+                    indicatorColor="secondary"
+                    aria-label="basic tabs example"
+                >
                     <Tab icon={<EmailIcon />} iconPosition="start" label="Email ID" {...a11yProps(0)} />
                     <Tab icon={<LocalPhoneIcon />} iconPosition="start" label="Mobile Number" {...a11yProps(1)} />
                     <Tab icon={<LanIcon />} iconPosition="start" label="IP Address" {...a11yProps(2)} />
@@ -282,7 +289,7 @@ export default function Feature1() {
                             </FormControl>
                         </Grid>
                         <Grid item xs={1}>
-                            <Button variant="outlined" sx={{ paddingBottom: 1, paddingTop: 1 }} onClick={callEmail}>
+                            <Button color="secondary" variant="outlined" sx={{ paddingBottom: 1, paddingTop: 1 }} onClick={callEmail}>
                                 Upload
                             </Button>
                         </Grid>
@@ -494,7 +501,7 @@ export default function Feature1() {
                                     height: '20vh'
                                 }}
                             >
-                                {breach.breaches.map((item) => (
+                                {breach?.breaches?.map((item) => (
                                     <>
                                         <Card
                                             sx={{
@@ -546,7 +553,7 @@ export default function Feature1() {
                             </FormControl>
                         </Grid>
                         <Grid item xs={1}>
-                            <Button variant="outlined" sx={{ paddingBottom: 1, paddingTop: 1 }} onClick={callMobile}>
+                            <Button color="secondary" variant="outlined" sx={{ paddingBottom: 1, paddingTop: 1 }} onClick={callMobile}>
                                 Upload
                             </Button>
                         </Grid>
@@ -659,7 +666,7 @@ export default function Feature1() {
                             </FormControl>
                         </Grid>
                         <Grid item xs={1}>
-                            <Button variant="outlined" sx={{ paddingBottom: 1, paddingTop: 1 }} onClick={callIP}>
+                            <Button color="secondary" variant="outlined" sx={{ paddingBottom: 1, paddingTop: 1 }} onClick={callIP}>
                                 Upload
                             </Button>
                         </Grid>
