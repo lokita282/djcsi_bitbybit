@@ -40,7 +40,7 @@ const GoogleCard = ({ google }) => {
                         <img
                             src="https://cdn-icons-png.flaticon.com/512/2504/2504739.png"
                             alt="LinkedIn"
-                            style={{ width: '1rem', height: '1rem', marginRight: '0.5rem' }}
+                            style={{ width: '1rem', height: '1rem', marginRight: '0.5rem', paddingTop: '1.5rem' }}
                         />
                         <Typography
                             variant="h5"

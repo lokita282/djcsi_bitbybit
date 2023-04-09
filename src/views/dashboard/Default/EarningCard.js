@@ -93,7 +93,7 @@ const EarningCard = ({ isLoading }) => {
                                         </Avatar>
                                     </Grid>
                                     <Grid item>
-                                        <Avatar
+                                        {/* <Avatar
                                             variant="rounded"
                                             sx={{
                                                 ...theme.typography.commonAvatar,
@@ -107,8 +107,8 @@ const EarningCard = ({ isLoading }) => {
                                             onClick={handleClick}
                                         >
                                             <MoreHorizIcon fontSize="inherit" />
-                                        </Avatar>
-                                        <Menu
+                                        </Avatar> */}
+                                        {/* <Menu
                                             id="menu-earning-card"
                                             anchorEl={anchorEl}
                                             keepMounted
@@ -136,7 +136,7 @@ const EarningCard = ({ isLoading }) => {
                                             <MenuItem onClick={handleClose}>
                                                 <ArchiveTwoToneIcon sx={{ mr: 1.75 }} /> Archive File
                                             </MenuItem>
-                                        </Menu>
+                                        </Menu> */}
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -144,7 +144,7 @@ const EarningCard = ({ isLoading }) => {
                                 <Grid container alignItems="center">
                                     <Grid item>
                                         <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                            $500.00
+                                            102 GB
                                         </Typography>
                                     </Grid>
                                     <Grid item>
@@ -169,7 +169,7 @@ const EarningCard = ({ isLoading }) => {
                                         color: theme.palette.secondary[200]
                                     }}
                                 >
-                                    Total Earning
+                                    Total Amount of data scanned
                                 </Typography>
                             </Grid>
                         </Grid>
