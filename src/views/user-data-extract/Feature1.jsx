@@ -103,6 +103,7 @@ export default function Feature1() {
     const [skype, setSkype] = useState();
     const [ok, setOk] = useState();
     const [airbnb, setAirbnb] = useState();
+    const [breach, setBreach] = useState();
 
     const callEmail = async () => {
         setLoading(true);
@@ -116,6 +117,7 @@ export default function Feature1() {
                 setSkype(res.data.data.account_details.skype);
                 setOk(res.data.data.account_details.ok);
                 setAirbnb(res.data.data.account_details.airbnb);
+                setBreach(res.data.data.breach_details);
             })
             .then(async () => {
                 await SeonService.seonEmailCategoryData(json).then((res) => {
@@ -470,6 +472,47 @@ export default function Feature1() {
                         )}
                     </>
                 )}
+                {breach ? (
+                    <div>
+                        <MainCard title="Security Breaches" sx={{ marginTop: '20px' }}>
+                            <Typography variant="h3">Number of breaches: {breach.number_of_breaches}</Typography>
+                            <Typography variant="body2" sx={{ marginTop: '20px', fontSize: '18px' }}>
+                                These security breaches can prove to be crucial to gaining more information about an individual, as the
+                                purported breach usually indicates that some private or sensitive data of the person of interest has been
+                                made public.This can help widen the investigative scenarios surrounding the said individual.
+                            </Typography>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    height: '20vh'
+                                }}
+                            >
+                                {breach.breaches.map((item) => (
+                                    <>
+                                        <Card
+                                            sx={{
+                                                minWidth: 275,
+                                                margin: '0.5rem',
+                                                background: 'linear-gradient(to bottom right, #f2f2f2, #d9d9d9)'
+                                            }}
+                                        >
+                                            <CardContent>
+                                                <Typography variant="h4" gutterBottom>
+                                                    {item.name}
+                                                </Typography>
+                                                <Divider />
+                                                <Typography color="textSecondary">{item.domain}</Typography>
+                                                <Typography variant="body2">{item.date}</Typography>
+                                            </CardContent>
+                                        </Card>
+                                    </>
+                                ))}
+                            </div>
+                        </MainCard>
+                    </div>
+                ) : null}
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <MainCard sx={{ marginTop: 2 }} title="Upload the user's mobile number">
