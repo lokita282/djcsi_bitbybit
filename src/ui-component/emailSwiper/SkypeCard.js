@@ -30,7 +30,7 @@ const SkypeCard = ({ skype }) => {
                         alignItems: 'center',
                         padding: '1rem',
                         maxWidth: 345,
-                        minHeight: 400
+                        height: 350
                     }}
                 >
                     {/* {console.log('jfcvfkve', linkedin)} */}

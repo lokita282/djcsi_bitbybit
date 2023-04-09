@@ -30,7 +30,7 @@ const GoogleCard = ({ google }) => {
                         alignItems: 'center',
                         padding: '2rem',
                         maxWidth: 345,
-                        minHeight: 400,
+                        height: 300,
                         alignItems: 'center',
                         alignContent: 'center'
                     }}
@@ -39,7 +39,7 @@ const GoogleCard = ({ google }) => {
                         <img
                             src="https://cdn-icons-png.flaticon.com/512/2504/2504739.png"
                             alt="LinkedIn"
-                            style={{ width: '2rem', height: '2rem', marginRight: '0.5rem' }}
+                            style={{ width: '1rem', height: '1rem', marginRight: '0.5rem' }}
                         />
                         <Typography variant="h5" component="h2" style={{ fontWeight: 'bold', fontSize: '1.5rem', letterSpacing: '0.1rem' }}>
                             Google Account
