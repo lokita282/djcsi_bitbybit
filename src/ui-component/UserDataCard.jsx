@@ -18,9 +18,9 @@ const CardWrapper = styled(MainCard)(({ theme, isRegistered }) => ({
     overflow: 'hidden',
     position: 'relative',
     // height: 50,
-    marginTop: 8,
-    marginLeft: 20,
-    marginRight: 20,
+    marginTop: 6,
+    // marginLeft: 8,
+    // marginRight: 8,
     '&:after': {
         content: '""',
         position: 'absolute',
@@ -74,7 +74,7 @@ const TotalIncomeDarkCard = ({ company, isLoading, isRegistered }) => {
                                     }}
                                     primary={
                                         <Typography variant="h3" sx={{ color: 'black' }}>
-                                            {company.charAt(0).toUpperCase() + company.slice(1)}
+                                            {company?.charAt(0).toUpperCase() + company?.slice(1)}
                                         </Typography>
                                     }
                                     secondary={

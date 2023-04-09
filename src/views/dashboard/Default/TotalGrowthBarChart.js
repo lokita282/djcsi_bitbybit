@@ -9,6 +9,7 @@ import { Grid, MenuItem, TextField, Typography } from '@mui/material';
 // third-party
 import ApexCharts from 'apexcharts';
 import Chart from 'react-apexcharts';
+import chartData from './chart-data/total-growth-bar-chart';
 
 // project imports
 import SkeletonTotalGrowthBarChart from 'ui-component/cards/Skeleton/TotalGrowthBarChart';
@@ -16,7 +17,6 @@ import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
 
 // chart data
-import chartData from './chart-data/total-growth-bar-chart';
 
 const status = [
     {
@@ -49,12 +49,12 @@ const TotalGrowthBarChart = ({ isLoading }) => {
     const primary200 = theme.palette.primary[200];
     const primaryDark = theme.palette.primary.dark;
     const secondaryMain = theme.palette.secondary.main;
-    const secondaryLight = theme.palette.secondary.light;
-
+    const secondaryLight = theme.palette.secondary[200];
+    const total = JSON.parse(localStorage.getItem('emailTotal'));
     useEffect(() => {
         const newChartData = {
             ...chartData.options,
-            colors: [primary200, primaryDark, secondaryMain, secondaryLight],
+            colors: [secondaryLight, secondaryMain],
             xaxis: {
                 labels: {
                     style: {
@@ -87,7 +87,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
             ApexCharts.exec(`bar-chart`, 'updateOptions', newChartData);
         }
     }, [navType, primary200, primaryDark, secondaryMain, secondaryLight, primary, darkLight, grey200, isLoading, grey500]);
-
+    console.log(chartData);
     return (
         <>
             {isLoading ? (
@@ -100,26 +100,12 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                                 <Grid item>
                                     <Grid container direction="column" spacing={1}>
                                         <Grid item>
-                                            <Typography variant="subtitle2">Total Growth</Typography>
+                                            <Typography variant="body1">Total Accounts Found</Typography>
                                         </Grid>
                                         <Grid item>
-                                            <Typography variant="h3">$2,324.00</Typography>
+                                            <Typography variant="h2">{total}</Typography>
                                         </Grid>
                                     </Grid>
-                                </Grid>
-                                <Grid item>
-                                    <TextField
-                                        id="standard-select-currency"
-                                        select
-                                        value={value}
-                                        onChange={(e) => setValue(e.target.value)}
-                                    >
-                                        {status.map((option) => (
-                                            <MenuItem key={option.value} value={option.value}>
-                                                {option.label}
-                                            </MenuItem>
-                                        ))}
-                                    </TextField>
                                 </Grid>
                             </Grid>
                         </Grid>

@@ -31,6 +31,16 @@ const seonEmailCategoryData = (data) => {
     });
 };
 
+const seonPhoneCategoryData = (data) => {
+    return httpCommon.get(`https://seon.onrender.com/seon/phone/regiTrue/91${data}`, {
+        headers: {
+            // 'X-API-KEY': '6e7236ee-06a3-4046-aba8-35943eba2f17',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        }
+    });
+};
+
 const seonIPData = (data) => {
     return httpCommon.get(`https://seon.onrender.com/seon/ip/${data}`, {
         headers: {
@@ -40,4 +50,4 @@ const seonIPData = (data) => {
         }
     });
 };
-export default { seonPhoneData, seonEmailData, seonIPData, seonEmailCategoryData };
+export default { seonPhoneData, seonEmailData, seonIPData, seonEmailCategoryData, seonPhoneCategoryData };
