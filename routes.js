@@ -70,7 +70,7 @@ router.get(`/email/:email`, function (req, res, next) {
     method: 'GET',
     url: `https://api.seon.io/SeonRestService/email-api/v2.2/${req.params.email}`,
     headers: {
-      'X-API-KEY': '6e7236ee-06a3-4046-aba8-35943eba2f17',
+      'X-API-KEY': '64bd7a3d-bced-4882-9634-5306cfa87762',
       'Content-Type': 'application/json',
     },
   }
@@ -86,7 +86,7 @@ router.get(`/email/regiTrue/:email`, function (req, res, next) {
     method: 'GET',
     url: `https://api.seon.io/SeonRestService/email-api/v2.2/${req.params.email}`,
     headers: {
-      'X-API-KEY': '6e7236ee-06a3-4046-aba8-35943eba2f17',
+      'X-API-KEY': '64bd7a3d-bced-4882-9634-5306cfa87762',
       'Content-Type': 'application/json',
     },
   }
@@ -113,7 +113,7 @@ router.get(`/email/regiTrue/:email`, function (req, res, next) {
           registeredEmailTech.push({
             name: account,
             isRegistered: x.data.account_details[account].registered,
-            // icon: 
+            // icon:
           })
           // resEmail = { ...resEmail, registeredEmailTech }
         }
@@ -193,16 +193,13 @@ router.get(`/email/regiTrue/:email`, function (req, res, next) {
   })
 })
 
-
-
-
 //ip api
 router.get(`/ip/:ip`, function (req, res, next) {
   var options = {
     method: 'GET',
     url: `https://api.seon.io/SeonRestService/ip-api/v1.1/${req.params.ip}`,
     headers: {
-      'X-API-KEY': '6e7236ee-06a3-4046-aba8-35943eba2f17',
+      'X-API-KEY': '64bd7a3d-bced-4882-9634-5306cfa87762',
       'Content-Type': 'application/json',
     },
   }
@@ -211,9 +208,6 @@ router.get(`/ip/:ip`, function (req, res, next) {
     console.log(response.body)
   }).pipe(res)
 })
-
-
-
 
 //phone number api-------------------------------------------------------------
 router.get(`/phone/:num`, function (req, res, next) {
@@ -221,7 +215,7 @@ router.get(`/phone/:num`, function (req, res, next) {
     method: 'GET',
     url: `https://api.seon.io/SeonRestService/phone-api/v1.4/${req.params.num}`,
     headers: {
-      'X-API-KEY': '6e7236ee-06a3-4046-aba8-35943eba2f17',
+      'X-API-KEY': '64bd7a3d-bced-4882-9634-5306cfa87762',
       'Content-Type': 'application/json',
     },
   }
@@ -231,15 +225,9 @@ router.get(`/phone/:num`, function (req, res, next) {
   }).pipe(res)
 })
 
-
 //registered phone number --------------------------------------------------------
-const phoneTech = [
-  'jdid',
-]
-const phoneEcomm = [
-  'flipkart',
-  'bukalapak',
-]
+const phoneTech = ['jdid']
+const phoneEcomm = ['flipkart', 'bukalapak']
 const phoneSocial = [
   'facebook',
   'google',
@@ -252,7 +240,7 @@ const phoneSocial = [
   'kakao',
   'snapchat',
   'whatsapp',
-  'telegram'
+  'telegram',
 ]
 const phoneMessaging = ['viber', 'zalo', 'line']
 
@@ -267,7 +255,7 @@ router.get(`/phone/regiTrue/:phone`, function (req, res, next) {
     method: 'GET',
     url: `https://api.seon.io/SeonRestService/phone-api/v1.4/${req.params.phone}`,
     headers: {
-      'X-API-KEY': '6e7236ee-06a3-4046-aba8-35943eba2f17',
+      'X-API-KEY': '64bd7a3d-bced-4882-9634-5306cfa87762',
       'Content-Type': 'application/json',
     },
   }
@@ -275,12 +263,12 @@ router.get(`/phone/regiTrue/:phone`, function (req, res, next) {
   request(options, function (error, response) {
     if (error) throw new Error(error)
     var x = JSON.parse(response.body)
-    console.log(x) 
-    var accounts = Object.keys(x.data.account_details) 
+    console.log(x)
+    var accounts = Object.keys(x.data.account_details)
     registeredPhoneTech = []
     registeredPhoneEcomm = []
     registeredPhoneSocial = []
-    registeredPhoneMessaging = [] 
+    registeredPhoneMessaging = []
 
     accounts.forEach((account) => {
       resPhone = {}
@@ -326,10 +314,9 @@ router.get(`/phone/regiTrue/:phone`, function (req, res, next) {
     console.log(resPhone)
     res.json({
       data: resPhone,
-    }) 
+    })
   })
 })
-
 
 router.get(`/phoneDeets/:num`, function (req, res, next) {
   var options = {
@@ -345,7 +332,5 @@ router.get(`/phoneDeets/:num`, function (req, res, next) {
     console.log(response.body)
   }).pipe(res)
 })
-
-
 
 export default router
